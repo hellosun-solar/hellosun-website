@@ -33,6 +33,9 @@
   transform: translateY(-8px) rotate(-45deg);
 }
 
+/* ---- Mobile-only founder photo (hidden on desktop) ---- */
+.founder-photo-mobile { display: none; }
+
 /* ---- Mobile Nav Overlay ---- */
 .nav-overlay {
   display: none;
@@ -149,9 +152,14 @@
   .why { grid-template-columns: 1fr !important; gap: 40px !important; }
   .lead { grid-template-columns: 1fr !important; gap: 40px !important; }
   .background { grid-template-columns: 1fr !important; gap: 40px !important; }
-  /* Photo above text when stacked */
-  .background-right { order: -1; }
-  .founder-photo-wrap { width: 220px; height: 220px; margin: 0 auto; }
+  /* Hide desktop sidebar photo; show inline mobile photo instead */
+  .background-right { display: none; }
+  .founder-photo-mobile {
+    display: flex;
+    justify-content: center;
+    margin: 28px 0 8px;
+  }
+  .founder-photo-mobile .founder-photo-wrap { width: 220px; height: 220px; }
 
   /* ---- About: problem & standard sections ---- */
   .problem { padding: 56px 36px; }
@@ -328,7 +336,7 @@
   .problem { padding: 36px 16px; }
   .standard { padding: 36px 16px; }
   .services-panel { padding: 28px 16px !important; }
-  .founder-photo-wrap { width: 180px; height: 180px; }
+  .founder-photo-mobile .founder-photo-wrap { width: 160px; height: 160px; }
 
   /* ---- Cards ---- */
   .card-pain, .card-solution { padding: 24px 16px; }
