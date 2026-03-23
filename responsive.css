@@ -68,6 +68,8 @@
   .contact-section { padding: 60px 48px; }
   .content { padding: 60px 40px; }
   .portfolio-section { padding: 48px 48px 80px; }
+  .problem { padding: 60px 48px; }
+  .standard { padding: 60px 48px; }
 
   /* Reduce nav padding */
   nav { padding: 0 32px; }
@@ -134,6 +136,7 @@
   /* ---- Grids: 4-col → 2-col ---- */
   .services-grid { grid-template-columns: repeat(2, 1fr) !important; }
   .reviews-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .standard-grid { grid-template-columns: repeat(2, 1fr) !important; }
   .footer-top { grid-template-columns: 1fr 1fr !important; gap: 36px !important; }
 
   /* ---- Grids: 3-col → 2-col ---- */
@@ -146,6 +149,23 @@
   .why { grid-template-columns: 1fr !important; gap: 40px !important; }
   .lead { grid-template-columns: 1fr !important; gap: 40px !important; }
   .background { grid-template-columns: 1fr !important; gap: 40px !important; }
+  /* Photo above text when stacked */
+  .background-right { order: -1; }
+  .founder-photo-wrap { width: 220px; height: 220px; margin: 0 auto; }
+
+  /* ---- About: problem & standard sections ---- */
+  .problem { padding: 56px 36px; }
+  .standard { padding: 56px 36px; }
+
+  /* ---- Remove max-width constraints on mobile ---- */
+  .problem-content,
+  .standard-intro,
+  .cards-intro,
+  .section p,
+  .services-panel > p,
+  .page-header p,
+  .cta-strip p,
+  .cta-banner h2 { max-width: 100% !important; }
 
   /* Page header with image → stack */
   .page-header { grid-template-columns: 1fr !important; }
@@ -207,12 +227,14 @@
   .services-grid { grid-template-columns: 1fr !important; }
   .reviews-grid { grid-template-columns: 1fr !important; }
   .diff-grid { grid-template-columns: 1fr !important; }
+  .standard-grid { grid-template-columns: 1fr !important; }
   .vendors-grid { grid-template-columns: repeat(2, 1fr) !important; }
   .footer-top { grid-template-columns: 1fr !important; gap: 28px !important; }
 
   /* ---- Section padding ---- */
   nav { padding: 0 20px; height: 68px; }
-  .nav-logo img { height: 44px; }
+  .nav-logo img { height: 52px; }
+  .nav-logo div { display: none; }
   .services, .reviews { padding: 48px 24px; }
   .why, .lead { padding: 48px 24px; }
   .vendors { padding: 36px 24px; }
@@ -224,6 +246,15 @@
   .content { padding: 40px 20px; }
   .portfolio-section { padding: 36px 24px 56px; }
   .background { padding: 56px 24px !important; }
+  .problem { padding: 48px 24px; }
+  .standard { padding: 48px 24px; }
+
+  /* ---- SREC services panel ---- */
+  .services-panel { padding: 36px 24px !important; }
+  .services-panel .services-grid { grid-template-columns: 1fr !important; }
+
+  /* ---- CTA banner stack on mobile ---- */
+  .cta-banner { flex-direction: column; text-align: center; gap: 20px; }
 
   /* ---- Cards (pain/solution) ---- */
   .card-pain, .card-solution { padding: 32px 24px; }
@@ -281,7 +312,7 @@
 
   /* ---- Section padding ---- */
   nav { padding: 0 16px; height: 60px; }
-  .nav-logo img { height: 38px; }
+  .nav-logo img { height: 44px; }
   .services, .reviews { padding: 36px 16px; }
   .why, .lead { padding: 36px 16px; }
   .vendors { padding: 28px 16px; }
@@ -294,6 +325,10 @@
   .content { padding: 32px 16px; }
   .portfolio-section { padding: 28px 16px 48px; }
   .background { padding: 40px 16px !important; }
+  .problem { padding: 36px 16px; }
+  .standard { padding: 36px 16px; }
+  .services-panel { padding: 28px 16px !important; }
+  .founder-photo-wrap { width: 180px; height: 180px; }
 
   /* ---- Cards ---- */
   .card-pain, .card-solution { padding: 24px 16px; }
