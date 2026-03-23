@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — HelloSun Energy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; color: #222222; background: #ffffff; overflow-x: hidden; }
+    h1, h2, h3, h4 { font-family: 'Playfair Display', Georgia, serif; }
+    a { text-decoration: none; color: inherit; }
+
+    nav {
+      background: #ffffff; display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px; height: 80px; box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      position: sticky; top: 0; z-index: 100;
+    }
+    .nav-logo img { height: 52px; width: auto; }
+    .nav-links { display: flex; gap: 36px; list-style: none; font-size: 0.9rem; font-weight: 500; color: #1B3A5C; }
+    .nav-links li a { transition: color 0.2s; }
+    .nav-links li a:hover, .nav-links li a.active { color: #FD8B21; }
+    .nav-cta {
+      background: #FD8B21; color: #fff; font-family: 'Inter', sans-serif;
+      font-size: 0.88rem; font-weight: 600; padding: 12px 26px; border-radius: 6px;
+      border: none; cursor: pointer; transition: background 0.2s; white-space: nowrap;
+    }
+    .nav-cta:hover { background: #e07818; }
+
+    .page-header { background: #0D2B45; padding: 72px 80px; color: #fff; }
+    .eyebrow { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #FD8B21; margin-bottom: 14px; }
+    .page-header h1 { font-size: clamp(2.2rem, 4vw, 3rem); line-height: 1.15; margin-bottom: 16px; }
+    .page-header h1 span { color: #26AAE7; }
+    .page-header p { font-size: 1rem; color: rgba(255,255,255,0.72); max-width: 520px; line-height: 1.75; }
+
+    /* ── CONTACT LAYOUT ── */
+    .contact-section { padding: 80px 80px; background: #F4F7FA; }
+    .contact-inner { display: grid; grid-template-columns: 1fr 1.6fr; gap: 72px; align-items: start; max-width: 1100px; margin: 0 auto; }
+
+    .contact-info .info-label {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: #26AAE7; margin-bottom: 12px;
+    }
+    .contact-info h2 { font-size: clamp(1.6rem, 2.5vw, 2rem); color: #0D2B45; line-height: 1.25; margin-bottom: 20px; }
+    .contact-info p { font-size: 0.95rem; color: #5A6B7A; line-height: 1.8; margin-bottom: 32px; }
+
+    .proposal-nudge {
+      background: #fff; border-left: 3px solid #FD8B21; border-radius: 0 8px 8px 0;
+      padding: 20px 24px;
+    }
+    .proposal-nudge p { font-size: 0.88rem; color: #4A5E70; line-height: 1.7; margin: 0 0 12px; }
+    .proposal-nudge a {
+      display: inline-block; background: #FD8B21; color: #fff;
+      font-size: 0.85rem; font-weight: 600; padding: 10px 22px;
+      border-radius: 6px; transition: background 0.2s;
+    }
+    .proposal-nudge a:hover { background: #e07818; }
+
+    /* ── FORM ── */
+    .contact-form {
+      background: #fff; border-radius: 14px;
+      box-shadow: 0 2px 24px rgba(0,0,0,0.08); padding: 48px;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .form-group { display: flex; flex-direction: column; gap: 7px; margin-bottom: 20px; }
+    .form-group label {
+      font-size: 0.8rem; font-weight: 600; color: #1B3A5C;
+      text-transform: uppercase; letter-spacing: 0.06em;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      font-family: 'Inter', sans-serif; font-size: 0.95rem; color: #0D2B45;
+      background: #F4F7FA; border: 1.5px solid #DDE6EF; border-radius: 7px;
+      padding: 12px 16px; transition: border-color 0.2s, background 0.2s;
+      outline: none; width: 100%;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: #26AAE7; background: #fff;
+    }
+    .form-group textarea { resize: vertical; min-height: 140px; }
+    .form-group .optional { font-size: 0.72rem; font-weight: 400; color: #8A9BB0; margin-left: 6px; text-transform: none; letter-spacing: 0; }
+
+    .form-submit {
+      background: #FD8B21; color: #fff; font-family: 'Inter', sans-serif;
+      font-size: 1rem; font-weight: 600; padding: 16px 40px;
+      border-radius: 8px; border: none; cursor: pointer;
+      transition: background 0.2s, transform 0.15s; width: 100%; margin-top: 8px;
+    }
+    .form-submit:hover { background: #e07818; transform: translateY(-1px); }
+
+    .form-note { font-size: 0.8rem; color: #8A9BB0; text-align: center; margin-top: 14px; line-height: 1.6; }
+
+    footer { background: #071e30; padding: 60px 80px 32px; color: rgba(255,255,255,0.7); }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+    .footer-brand img { height: 44px; margin-bottom: 16px; }
+    .footer-brand p { font-size: 0.88rem; line-height: 1.65; max-width: 280px; color: rgba(255,255,255,0.55); }
+    .veteran-badge {
+      display: inline-flex; align-items: center; gap: 8px; margin-top: 16px;
+      background: rgba(253,139,33,0.15); border: 1px solid rgba(253,139,33,0.3);
+      border-radius: 6px; padding: 8px 14px; font-size: 0.78rem; font-weight: 600;
+      color: #FD8B21; letter-spacing: 0.04em; text-transform: uppercase;
+    }
+    .footer-col h4 { font-family: 'Inter', sans-serif; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #26AAE7; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul li a { font-size: 0.88rem; color: rgba(255,255,255,0.6); transition: color 0.2s; }
+    .footer-col ul li a:hover { color: #FD8B21; }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 24px; display: flex; justify-content: space-between; font-size: 0.8rem; color: rgba(255,255,255,0.35); }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/" class="nav-logo" style="text-decoration:none;">
+      <img src="HelloSun-Logo-transparent.png" alt="HelloSun Energy">
+      <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#FD8B21;margin-top:3px;text-align:center;">Solar. Done Right.</div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/#services">Services</a></li>
+      <li><a href="/portfolio">Portfolio</a></li>
+      <li><a href="/service-area">Service Area</a></li>
+      <li><a href="/faq">FAQ</a></li>
+      <li><a href="/about">About Us</a></li>
+      <li><a href="/contact" class="active">Contact</a></li>
+    </ul>
+    <button class="nav-cta">Get Started</button>
+  </nav>
+
+  <div class="page-header">
+    <div class="eyebrow">Contact</div>
+    <h1>Have a question?<br><span>We'll give you a straight answer.</span></h1>
+    <p>Use this form for general questions and business inquiries. We'll get back to you directly — no call center, no runaround.</p>
+  </div>
+
+  <section class="contact-section">
+    <div class="contact-inner">
+
+      <div class="contact-info">
+        <div class="info-label">Before You Write</div>
+        <h2>Looking for a proposal?</h2>
+        <p>This form is for general questions and business inquiries. If you're interested in a solar, battery, or roofing proposal for your home or business, use the Get Started button — it routes you into our proposal process where we can actually do something useful with your information.</p>
+        <div class="proposal-nudge">
+          <p>Ready to see what solar looks like for your property? Our proposal process starts with your actual data — no estimates, no guesswork.</p>
+          <a href="#">Get Started →</a>
+        </div>
+      </div>
+
+      <!-- To connect this form: sign up at formspree.io, create a form, and replace "YOUR_FORM_ID" in the action URL below -->
+      <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Your name" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="your@email.com" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="phone">Phone <span class="optional">optional</span></label>
+            <input type="tel" id="phone" name="phone" placeholder="(555) 000-0000">
+          </div>
+          <div class="form-group">
+            <label for="topic">Topic</label>
+            <select id="topic" name="topic" required>
+              <option value="" disabled selected>Select a topic</option>
+              <option value="general">General Question</option>
+              <option value="business">Business Inquiry</option>
+              <option value="partnership">Partnership</option>
+              <option value="media">Media</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" placeholder="What's on your mind?" required></textarea>
+        </div>
+        <button type="submit" class="form-submit">Send Message</button>
+        <p class="form-note">We typically respond within one business day. This form is not monitored for urgent matters.</p>
+      </form>
+
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="HelloSun-Logo-transparent.png" alt="HelloSun Energy" style="max-width:180px;">
+        <p>Precision-engineered solar &amp; battery systems for homeowners and businesses who demand quality, transparency, and long-term performance.</p>
+        <div class="veteran-badge">🎖️ Veteran Owned &amp; Operated</div>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="/residential">Residential Solar</a></li>
+          <li><a href="/commercial">Commercial Solar</a></li>
+          <li><a href="/battery">Battery Storage</a></li>
+          <li><a href="/roofing">Roofing</a></li>
+          <li><a href="/srec">SREC Aggregation</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="/about">About Us</a></li>
+          <li><a href="/portfolio">Portfolio</a></li>
+          <li><a href="/service-area">Service Area</a></li>
+          <li><a href="/faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="/contact">Contact Us</a></li>
+          
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 HelloSun Energy LLC. All rights reserved.</span>
+      <span>Privacy Policy · Terms of Service</span>
+    </div>
+  </footer>
+
+</body>
+</html>

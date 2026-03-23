@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Service Area — HelloSun Energy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; color: #222222; background: #ffffff; }
+    h1, h2, h3 { font-family: 'Playfair Display', Georgia, serif; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── NAV ── */
+    nav {
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 80px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      position: sticky; top: 0; z-index: 100;
+    }
+    .nav-logo img { height: 52px; width: auto; }
+    .nav-links {
+      display: flex; gap: 36px; list-style: none;
+      font-size: 0.9rem; font-weight: 500; color: #1B3A5C;
+    }
+    .nav-links li a { transition: color 0.2s; }
+    .nav-links li a:hover, .nav-links li a.active { color: #FD8B21; }
+    .nav-cta {
+      background: #FD8B21; color: #ffffff;
+      font-family: 'Inter', sans-serif; font-size: 0.88rem; font-weight: 600;
+      padding: 12px 26px; border-radius: 6px; border: none; cursor: pointer;
+      transition: background 0.2s, transform 0.1s; white-space: nowrap;
+    }
+    .nav-cta:hover { background: #e07818; transform: translateY(-1px); }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      background: #0D2B45;
+      padding: 64px 80px 56px;
+      color: #ffffff;
+    }
+    .page-header .eyebrow {
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: #FD8B21; margin-bottom: 12px;
+    }
+    .page-header h1 { font-size: clamp(2rem, 4vw, 3rem); line-height: 1.15; margin-bottom: 16px; }
+    .page-header h1 span { color: #26AAE7; }
+    .page-header p {
+      font-size: 1rem; color: rgba(255,255,255,0.72);
+      max-width: 600px; line-height: 1.7;
+    }
+
+    /* ── MAIN CONTENT ── */
+    .content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 48px;
+    }
+
+    /* ── LEGEND ── */
+    .legend {
+      display: flex; gap: 24px; flex-wrap: wrap;
+      margin-bottom: 28px; align-items: center;
+    }
+    .legend-item {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.85rem; font-weight: 500; color: #1B3A5C;
+    }
+    .legend-swatch {
+      width: 18px; height: 18px; border-radius: 3px; flex-shrink: 0;
+    }
+
+    /* ── MAP ── */
+    #service-map {
+      width: 100%;
+      height: 560px;
+      border-radius: 10px;
+      border: 1px solid #e0e8ef;
+      box-shadow: 0 4px 24px rgba(13,43,69,0.08);
+    }
+
+    /* ── CALLOUT ── */
+    .callout {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: rgba(253,139,33,0.1); border: 1px solid rgba(253,139,33,0.35);
+      color: #c06000; font-size: 0.85rem; font-weight: 600;
+      padding: 10px 18px; border-radius: 6px; margin-top: 20px;
+    }
+
+    .map-note {
+      margin-top: 14px; font-size: 0.8rem; color: #5A6B7A; line-height: 1.6;
+    }
+
+    /* ── COUNTY LIST ── */
+    .county-section { margin-top: 56px; }
+    .county-section h2 { font-size: 1.6rem; color: #0D2B45; margin-bottom: 8px; }
+    .county-section p { font-size: 0.9rem; color: #5A6B7A; margin-bottom: 28px; }
+    .county-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 10px;
+    }
+    .county-chip {
+      background: #EBF7FD; border: 1px solid #b3e0f5;
+      color: #1B3A5C; font-size: 0.82rem; font-weight: 600;
+      padding: 8px 14px; border-radius: 6px; text-align: center;
+    }
+    .county-chip.excluded {
+      background: #fdeaea; border-color: #f5b3b3; color: #991111;
+    }
+
+    /* ── FOOTER ── */
+    footer { background: #071e30; padding: 60px 80px 32px; color: rgba(255,255,255,0.7); }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+    .footer-brand img { height: 44px; margin-bottom: 16px; }
+    .footer-brand p { font-size: 0.88rem; line-height: 1.65; max-width: 280px; color: rgba(255,255,255,0.55); }
+    .veteran-badge { display: inline-flex; align-items: center; gap: 8px; margin-top: 16px; background: rgba(253,139,33,0.15); border: 1px solid rgba(253,139,33,0.3); border-radius: 6px; padding: 8px 14px; font-size: 0.78rem; font-weight: 600; color: #FD8B21; letter-spacing: 0.04em; text-transform: uppercase; }
+    .footer-col h4 { font-family: 'Inter', sans-serif; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #26AAE7; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul li a { font-size: 0.88rem; color: rgba(255,255,255,0.6); transition: color 0.2s; }
+    .footer-col ul li a:hover { color: #FD8B21; }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: rgba(255,255,255,0.35); }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="/" class="nav-logo" style="text-decoration:none;">
+      <img src="HelloSun-Logo-transparent.png" alt="HelloSun Energy">
+      <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#FD8B21;margin-top:3px;text-align:center;">Solar. Done Right.</div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/#services">Services</a></li>
+      <li><a href="/portfolio">Portfolio</a></li>
+      <li><a href="/service-area" class="active">Service Area</a></li>
+      <li><a href="/faq">FAQ</a></li>
+      <li><a href="/about">About Us</a></li>
+    </ul>
+    <button class="nav-cta">Get Started</button>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="eyebrow">Where We Work</div>
+    <h1>Serving Pennsylvania —<br><span>where quality installs happen.</span></h1>
+    <p>
+      HelloSun serves homeowners and businesses throughout central and southeastern Pennsylvania.
+      Every project is handled by trusted local solar professionals — no out-of-state subcontractors, no handoffs.
+      We stay close to home so we can do the work right.
+    </p>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="content">
+
+    <!-- Legend -->
+    <div class="legend">
+      <div class="legend-item">
+        <div class="legend-swatch" style="background:#26AAE7; border:1.5px solid #1B3A5C; opacity:0.7;"></div>
+        <span>HelloSun Service Area</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-swatch" style="background:#cc3333; opacity:0.6;"></div>
+        <span>Philadelphia (not served)</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-swatch" style="background:#bbbbbb; opacity:0.5;"></div>
+        <span>Outside service area</span>
+      </div>
+      <div class="legend-item" style="margin-left:auto;">
+        <div class="legend-swatch" style="background:#FD8B21; border-radius:50%;"></div>
+        <span>Reading, PA — HelloSun HQ</span>
+      </div>
+    </div>
+
+    <!-- Map -->
+    <div id="service-map"></div>
+
+    <div class="callout">
+      ⚠️ We do not serve Philadelphia city limits or any location outside Pennsylvania.
+    </div>
+    <p class="map-note">
+      Click any county for its service status. Not sure if your address qualifies?
+      <a href="/#get-quote">Get in touch</a> and we'll confirm.
+    </p>
+
+    <!-- County list -->
+    <div class="county-section">
+      <h2>Served Counties</h2>
+      <p>34 Pennsylvania counties within 100 miles of Reading — excluding Philadelphia city limits.</p>
+      <div class="county-grid" id="county-list"></div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="HelloSun-Logo-transparent.png" alt="HelloSun Energy" style="max-width:180px;">
+        <p>Precision-engineered solar &amp; battery systems for homeowners and businesses who demand quality, transparency, and long-term performance.</p>
+        <div class="veteran-badge">🎖️ Veteran Owned &amp; Operated</div>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="/residential">Residential Solar</a></li>
+          <li><a href="/commercial">Commercial Solar</a></li>
+          <li><a href="/battery">Battery Storage</a></li>
+          <li><a href="/roofing">Roofing</a></li>
+          <li><a href="/srec">SREC Aggregation</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="/about">About Us</a></li>
+          <li><a href="/portfolio">Portfolio</a></li>
+          <li><a href="/service-area">Service Area</a></li>
+          <li><a href="/faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="/contact">Contact Us</a></li>
+          
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 HelloSun Energy LLC · PA HIC# T001208. All rights reserved.</span>
+      <span>Privacy Policy · Terms of Service</span>
+    </div>
+  </footer>
+
+  <script>
+    // ── PA county FIPS → name lookup (all 67 counties) ───────────────────────────
+    const PA_FIPS = {
+      '42001':'Adams','42003':'Allegheny','42005':'Armstrong','42007':'Beaver',
+      '42009':'Bedford','42011':'Berks','42013':'Blair','42015':'Bradford',
+      '42017':'Bucks','42019':'Butler','42021':'Cambria','42023':'Cameron',
+      '42025':'Carbon','42027':'Centre','42029':'Chester','42031':'Clarion',
+      '42033':'Clearfield','42035':'Clinton','42037':'Columbia','42039':'Crawford',
+      '42041':'Cumberland','42043':'Dauphin','42045':'Delaware','42047':'Elk',
+      '42049':'Erie','42051':'Fayette','42053':'Forest','42055':'Franklin',
+      '42057':'Fulton','42059':'Greene','42061':'Huntingdon','42063':'Indiana',
+      '42065':'Jefferson','42067':'Juniata','42069':'Lackawanna','42071':'Lancaster',
+      '42073':'Lawrence','42075':'Lebanon','42077':'Lehigh','42079':'Luzerne',
+      '42081':'Lycoming','42083':'McKean','42085':'Mercer','42087':'Mifflin',
+      '42089':'Monroe','42091':'Montgomery','42093':'Montour','42095':'Northampton',
+      '42097':'Northumberland','42099':'Perry','42101':'Philadelphia','42103':'Pike',
+      '42105':'Potter','42107':'Schuylkill','42109':'Snyder','42111':'Somerset',
+      '42113':'Sullivan','42115':'Susquehanna','42117':'Tioga','42119':'Union',
+      '42121':'Venango','42123':'Warren','42125':'Washington','42127':'Wayne',
+      '42129':'Westmoreland','42131':'Wyoming','42133':'York'
+    };
+
+    // ── Service area sets ────────────────────────────────────────────────────────
+    const IN_RANGE = new Set([
+      'Adams','Berks','Bucks','Carbon','Centre','Chester','Clinton','Columbia','Cumberland',
+      'Dauphin','Delaware','Franklin','Juniata','Lackawanna','Lancaster','Lebanon',
+      'Lehigh','Luzerne','Lycoming','Mifflin','Monroe','Montour','Montgomery',
+      'Northampton','Northumberland','Perry','Pike','Schuylkill','Snyder','Sullivan',
+      'Union','Wayne','Wyoming','York'
+    ]);
+    const EXCLUDED = new Set(['Philadelphia']);
+
+    // ── Map ──────────────────────────────────────────────────────────────────────
+    const map = L.map('service-map', {
+      center: [40.9, -77.6],
+      zoom: 7,
+      scrollWheelZoom: false,
+      zoomControl: true,
+    });
+
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/">CARTO</a>',
+      maxZoom: 18,
+    }).addTo(map);
+
+    // us-atlas counties-10m via jsDelivr (CORS-safe, no API key needed)
+    fetch('https://cdn.jsdelivr.net/npm/us-atlas@3/counties-10m.json')
+      .then(r => r.json())
+      .then(us => {
+        // Convert topojson → GeoJSON, keep only PA counties (FIPS prefix 42)
+        const allCounties = topojson.feature(us, us.objects.counties);
+        const paFeatures = allCounties.features.filter(f => String(f.id).startsWith('42'));
+
+        // Attach name from lookup
+        paFeatures.forEach(f => { f.properties.NAME = PA_FIPS[String(f.id)] || ''; });
+
+        L.geoJSON({ type: 'FeatureCollection', features: paFeatures }, {
+          style: feature => {
+            const name = feature.properties.NAME;
+            if (EXCLUDED.has(name))
+              return { fillColor: '#cc3333', fillOpacity: 0.45, color: '#991111', weight: 1.5 };
+            if (IN_RANGE.has(name))
+              return { fillColor: '#26AAE7', fillOpacity: 0.35, color: '#1B3A5C', weight: 1.5 };
+            return { fillColor: '#bbbbbb', fillOpacity: 0.18, color: '#999999', weight: 0.8 };
+          },
+          onEachFeature: (feature, layer) => {
+            const name = feature.properties.NAME;
+            if (EXCLUDED.has(name)) {
+              layer.bindPopup(`<strong>${name} County</strong><br>⚠️ Not in HelloSun service area`);
+            } else if (IN_RANGE.has(name)) {
+              layer.bindPopup(`<strong>${name} County</strong><br>✅ HelloSun Service Area`);
+            } else {
+              layer.bindPopup(`<strong>${name} County</strong><br>Outside service area`);
+            }
+            layer.on('mouseover', function() {
+              this.setStyle({ fillOpacity: EXCLUDED.has(name) ? 0.65 : IN_RANGE.has(name) ? 0.55 : 0.3 });
+            });
+            layer.on('mouseout', function() {
+              this.setStyle({ fillOpacity: EXCLUDED.has(name) ? 0.45 : IN_RANGE.has(name) ? 0.35 : 0.18 });
+            });
+          }
+        }).addTo(map);
+
+        // Reading PA marker
+        L.circleMarker([40.3356, -75.9269], {
+          radius: 7, color: '#FD8B21', fillColor: '#FD8B21', fillOpacity: 1, weight: 2,
+        }).addTo(map).bindPopup('<strong>Reading, PA</strong><br>HelloSun headquarters');
+      })
+      .catch(() => {
+        const el = document.getElementById('service-map');
+        el.style.cssText += 'display:flex;align-items:center;justify-content:center;font-size:0.9rem;color:#5A6B7A;';
+        el.innerText = '📍 Map unavailable — see county list below for service area details.';
+      });
+
+    // ── County chip list (served counties only) ──────────────────────────────────
+    const sorted = [...IN_RANGE].sort();
+    const grid = document.getElementById('county-list');
+    sorted.forEach(name => {
+      const chip = document.createElement('div');
+      chip.className = 'county-chip';
+      chip.textContent = name + ' County';
+      grid.appendChild(chip);
+    });
+  </script>
+
+</body>
+</html>

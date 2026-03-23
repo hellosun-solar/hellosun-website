@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SREC Aggregation Services — HelloSun Energy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; color: #222222; background: #ffffff; }
+    h1, h2, h3 { font-family: 'Playfair Display', Georgia, serif; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── NAV ── */
+    nav {
+      background: #ffffff;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px; height: 80px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      position: sticky; top: 0; z-index: 100;
+    }
+    .nav-logo img { height: 52px; width: auto; }
+    .nav-links {
+      display: flex; gap: 36px; list-style: none;
+      font-size: 0.9rem; font-weight: 500; color: #1B3A5C;
+    }
+    .nav-links li a { transition: color 0.2s; }
+    .nav-links li a:hover { color: #FD8B21; }
+    .nav-cta {
+      background: #FD8B21; color: #ffffff;
+      font-family: 'Inter', sans-serif; font-size: 0.88rem; font-weight: 600;
+      padding: 12px 26px; border-radius: 6px; border: none; cursor: pointer;
+      transition: background 0.2s, transform 0.1s; white-space: nowrap;
+    }
+    .nav-cta:hover { background: #e07818; transform: translateY(-1px); }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      background: #0D2B45;
+      padding: 64px 80px 56px;
+      color: #ffffff;
+    }
+    .page-header .eyebrow {
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: #FD8B21; margin-bottom: 12px;
+    }
+    .page-header h1 { font-size: clamp(2rem, 4vw, 3rem); line-height: 1.15; margin-bottom: 16px; }
+    .page-header h1 span { color: #26AAE7; }
+    .page-header p {
+      font-size: 1rem; color: rgba(255,255,255,0.72);
+      max-width: 640px; line-height: 1.7;
+    }
+
+    /* ── CONTENT ── */
+    .content {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 72px 48px 100px;
+    }
+
+    /* ── EXPLAINER SECTION ── */
+    .section { margin-bottom: 72px; }
+    .section-eyebrow {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: #FD8B21; margin-bottom: 12px;
+    }
+    .section h2 { font-size: 1.9rem; color: #0D2B45; margin-bottom: 20px; line-height: 1.2; }
+    .section p {
+      font-size: 0.97rem; color: #4A5568; line-height: 1.85;
+      max-width: 720px; margin-bottom: 16px;
+    }
+    .section p:last-child { margin-bottom: 0; }
+    .section p strong { color: #0D2B45; font-weight: 600; }
+    .section p em { color: #FD8B21; font-style: normal; font-weight: 600; }
+
+    /* ── HOW IT WORKS STEPS ── */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 28px;
+      margin-top: 40px;
+    }
+    .step {
+      background: #F7F9FC;
+      border: 1px solid #E6ECF0;
+      border-radius: 12px;
+      padding: 28px 24px;
+    }
+    .step-num {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: #0D2B45; color: #ffffff;
+      font-size: 0.85rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 16px;
+    }
+    .step h3 {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.92rem; font-weight: 700;
+      color: #0D2B45; margin-bottom: 8px;
+    }
+    .step p { font-size: 0.88rem; color: #5A6B7A; line-height: 1.6; margin: 0; max-width: none; }
+
+    /* ── DELINEATION CALLOUT ── */
+    .delineation {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 40px;
+    }
+    .delineation-card {
+      border-radius: 12px;
+      padding: 28px 28px;
+    }
+    .delineation-card.srec {
+      background: #EBF3FF;
+      border: 1px solid #B3CFEE;
+    }
+    .delineation-card.netmeter {
+      background: #F0FDF6;
+      border: 1px solid #A7DFC0;
+    }
+    .delineation-card .tag {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; margin-bottom: 10px;
+    }
+    .delineation-card.srec .tag { color: #1B5FAA; }
+    .delineation-card.netmeter .tag { color: #1A7A4A; }
+    .delineation-card h3 {
+      font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 700;
+      color: #0D2B45; margin-bottom: 12px;
+    }
+    .delineation-card ul {
+      list-style: none; padding: 0;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .delineation-card ul li {
+      font-size: 0.88rem; color: #4A5568; line-height: 1.5;
+      padding-left: 18px; position: relative;
+    }
+    .delineation-card ul li::before {
+      content: '→'; position: absolute; left: 0;
+      font-weight: 700; font-size: 0.8rem;
+    }
+    .delineation-card.srec ul li::before { color: #1B5FAA; }
+    .delineation-card.netmeter ul li::before { color: #1A7A4A; }
+
+    /* ── SERVICES PANEL ── */
+    .services-panel {
+      background: linear-gradient(135deg, #0D2B45 0%, #1B3A5C 100%);
+      border-radius: 14px;
+      padding: 52px 56px;
+      margin-bottom: 72px;
+    }
+    .services-panel .section-eyebrow { color: #FD8B21; }
+    .services-panel h2 { color: #ffffff; margin-bottom: 16px; }
+    .services-panel > p {
+      color: rgba(255,255,255,0.72); font-size: 0.97rem; line-height: 1.8;
+      max-width: 680px; margin-bottom: 40px;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .service-card {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 10px;
+      padding: 24px 26px;
+    }
+    .service-card h3 {
+      font-family: 'Inter', sans-serif; font-size: 0.92rem; font-weight: 700;
+      color: #FD8B21; margin-bottom: 10px;
+    }
+    .service-card p {
+      font-size: 0.88rem; color: rgba(255,255,255,0.65); line-height: 1.65;
+      margin: 0;
+    }
+
+    /* ── CUSTOMER BENEFIT BANNER ── */
+    .benefit-banner {
+      background: #FFF8EE;
+      border: 1.5px solid #FD8B21;
+      border-radius: 12px;
+      padding: 32px 36px;
+      display: flex; align-items: flex-start; gap: 20px;
+      margin-top: 28px;
+    }
+    .benefit-icon {
+      font-size: 2rem; flex-shrink: 0; margin-top: 2px;
+    }
+    .benefit-banner h3 {
+      font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 700;
+      color: #0D2B45; margin-bottom: 8px;
+    }
+    .benefit-banner p {
+      font-size: 0.9rem; color: #5A4020; line-height: 1.7; margin: 0;
+    }
+
+    /* ── CTA STRIP ── */
+    .cta-strip {
+      background: #F7F9FC;
+      border: 1px solid #E6ECF0;
+      border-radius: 14px;
+      padding: 48px 52px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 32px; flex-wrap: wrap;
+    }
+    .cta-strip h2 { font-size: 1.6rem; color: #0D2B45; margin-bottom: 8px; }
+    .cta-strip p { font-size: 0.92rem; color: #5A6B7A; line-height: 1.6; max-width: 480px; }
+    .cta-btn {
+      background: #FD8B21; color: #ffffff;
+      font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 600;
+      padding: 16px 36px; border-radius: 8px; border: none; cursor: pointer;
+      white-space: nowrap; flex-shrink: 0;
+      transition: background 0.2s, transform 0.1s;
+      box-shadow: 0 4px 20px rgba(253,139,33,0.35);
+    }
+    .cta-btn:hover { background: #e07818; transform: translateY(-2px); }
+
+    /* ── FOOTER ── */
+    footer { background: #071e30; padding: 60px 80px 32px; color: rgba(255,255,255,0.7); }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+    .footer-brand img { height: 44px; margin-bottom: 16px; }
+    .footer-brand p { font-size: 0.88rem; line-height: 1.65; max-width: 280px; color: rgba(255,255,255,0.55); }
+    .veteran-badge { display: inline-flex; align-items: center; gap: 8px; margin-top: 16px; background: rgba(253,139,33,0.15); border: 1px solid rgba(253,139,33,0.3); border-radius: 6px; padding: 8px 14px; font-size: 0.78rem; font-weight: 600; color: #FD8B21; letter-spacing: 0.04em; text-transform: uppercase; }
+    .footer-col h4 { font-family: 'Inter', sans-serif; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #26AAE7; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul li a { font-size: 0.88rem; color: rgba(255,255,255,0.6); transition: color 0.2s; }
+    .footer-col ul li a:hover { color: #FD8B21; }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: rgba(255,255,255,0.35); }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="/" class="nav-logo" style="text-decoration:none;">
+      <img src="HelloSun-Logo-transparent.png" alt="HelloSun Energy">
+      <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#FD8B21;margin-top:3px;text-align:center;">Solar. Done Right.</div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/#services">Services</a></li>
+      <li><a href="/portfolio">Portfolio</a></li>
+      <li><a href="/service-area">Service Area</a></li>
+      <li><a href="/faq">FAQ</a></li>
+      <li><a href="/about">About Us</a></li>
+      <li><a href="/contact">Contact</a></li>
+    </ul>
+    <button class="nav-cta">Get Started</button>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="eyebrow">SREC Aggregation Services</div>
+    <h1>Your solar system earns more<br><span>than just a lower electric bill.</span></h1>
+    <p>
+      Every kilowatt-hour your panels produce generates more than just savings — it earns
+      tradeable certificates with real market value. HelloSun helps Pennsylvania solar owners
+      capture that value, whether you're a HelloSun customer or not.
+    </p>
+  </div>
+
+  <div class="content">
+
+    <!-- What is an SREC -->
+    <div class="section">
+      <div class="section-eyebrow">The Basics</div>
+      <h2>What is an SREC, exactly?</h2>
+      <p>
+        A <strong>Solar Renewable Energy Certificate (SREC)</strong> is a tradeable certificate
+        you earn for every megawatt-hour (1,000 kWh) of solar energy your system produces.
+        Pennsylvania utilities are required by law to source a portion of their electricity
+        from solar energy — and SRECs are how they prove compliance. Solar system owners
+        earn the certificates; utilities and businesses buy them. It's a market that runs
+        entirely parallel to your electric utility account.
+      </p>
+      <p>
+        The SREC market exists because of Pennsylvania's
+        <strong><a href="https://www.legis.state.pa.us/cfdocs/legis/li/uconsCheck.cfm?yr=2004&sessInd=0&act=213"
+          target="_blank" rel="noopener"
+          style="color:#1B5FAA;">Alternative Energy Portfolio Standards (AEPS) Act — Act 213 of 2004</a></strong>.
+        That legislation requires Pennsylvania electricity suppliers to source a growing percentage
+        of their power from renewable and alternative energy sources, with a dedicated carve-out
+        specifically for solar. SRECs are the compliance mechanism — a way to make the solar
+        requirement trackable, verifiable, and tradeable across the market.
+      </p>
+      <p>
+        This is a fundamentally different benefit from net metering. The two programs
+        work simultaneously, but they operate through completely separate channels.
+        The comparison below explains the distinction.
+      </p>
+
+      <!-- Delineation cards -->
+      <div class="delineation">
+        <div class="delineation-card srec">
+          <div class="tag">SREC Market</div>
+          <h3>Solar Renewable Energy Certificates</h3>
+          <ul>
+            <li>Earned per megawatt-hour (1,000 kWh) of production</li>
+            <li>Sold in a separate certificate market</li>
+            <li>Buyers are utilities &amp; businesses meeting legal requirements</li>
+            <li>Paid out as cash, independent of your utility bill</li>
+            <li>Value fluctuates with market conditions</li>
+          </ul>
+        </div>
+        <div class="delineation-card netmeter">
+          <div class="tag">Net Metering</div>
+          <h3>Banked Energy Credits</h3>
+          <ul>
+            <li>Earned per kilowatt-hour of excess solar sent to the grid</li>
+            <li>Credited directly on your utility bill (1:1 in Pennsylvania)</li>
+            <li>Rolls forward month to month as "banked energy"</li>
+            <li>Reduces what you owe your electric utility</li>
+            <li>Annual surplus paid out at true-up in May</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- How it works -->
+    <div class="section">
+      <div class="section-eyebrow">The Process</div>
+      <h2>How SREC aggregation works</h2>
+      <p>
+        Selling SRECs on your own requires navigating a registration process, tracking
+        production, and finding buyers in a specialized market. Most homeowners don't
+        have the time or contacts to do this efficiently — which means certificates go
+        unclaimed and money is left on the table. That's where aggregation comes in.
+      </p>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <h3>Enroll Your System</h3>
+          <p>We register your system with the Pennsylvania SREC market and set up production tracking through your monitoring platform.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <h3>Earn Certificates</h3>
+          <p>For every 1,000 kWh your system produces, one SREC is issued to your account. Production is tracked and verified automatically.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <h3>We Handle the Market</h3>
+          <p>HelloSun aggregates your SRECs with other system owners and sells them into the market — maximizing value without requiring anything from you.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <h3>You Get Paid</h3>
+          <p>Proceeds are distributed to participating system owners on a regular basis. Your system keeps producing; you keep earning.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Services Panel -->
+    <div class="services-panel">
+      <div class="section-eyebrow">HelloSun SREC Services</div>
+      <h2>Available to any Pennsylvania solar owner</h2>
+      <p>
+        You don't have to be a HelloSun installation customer to use our SREC aggregation service.
+        If you have a solar system in Pennsylvania that is producing energy, we can help you put
+        those certificates to work. Most existing system owners are leaving real money unclaimed
+        simply because no one told them it was there.
+      </p>
+      <div class="services-grid">
+        <div class="service-card">
+          <h3>System Enrollment &amp; Registration</h3>
+          <p>We handle the paperwork to get your system registered in the PA SREC market and connected to your production data.</p>
+        </div>
+        <div class="service-card">
+          <h3>Production Tracking</h3>
+          <p>We monitor your system's output and ensure every megawatt-hour of production is accurately captured and converted to certificates.</p>
+        </div>
+        <div class="service-card">
+          <h3>Market Aggregation &amp; Sale</h3>
+          <p>Your certificates are pooled with other PA system owners and sold through established market channels at competitive rates.</p>
+        </div>
+        <div class="service-card">
+          <h3>Proceeds Distribution</h3>
+          <p>Earnings are distributed to participating owners on a regular schedule — straightforward, transparent, no surprises.</p>
+        </div>
+      </div>
+
+      <!-- Customer benefit banner -->
+      <div class="benefit-banner">
+        <div class="benefit-icon">☀️</div>
+        <div>
+          <h3>HelloSun Customers: Let Your SRECs Cover Your Care Plan</h3>
+          <p>
+            HelloSun installation customers have the option to apply their SREC proceeds directly
+            toward their care plan subscription — meaning your system's clean energy production
+            can cover all or part of its own ongoing maintenance and monitoring costs.
+            Your solar investment working for you in more ways than one.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-strip">
+      <div>
+        <h2>Don't leave your SRECs on the table.</h2>
+        <p>
+          Whether you're a new HelloSun customer or have an existing system installed by
+          someone else, we'd be glad to walk you through enrollment and what your system
+          could be earning.
+        </p>
+      </div>
+      <button class="cta-btn">Get in Touch</button>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="HelloSun-Logo-transparent.png" alt="HelloSun Energy" style="max-width:180px;">
+        <p>Precision-engineered solar &amp; battery systems for homeowners and businesses who demand quality, transparency, and long-term performance.</p>
+        <div class="veteran-badge">🎖️ Veteran Owned &amp; Operated</div>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="/residential">Residential Solar</a></li>
+          <li><a href="/commercial">Commercial Solar</a></li>
+          <li><a href="/battery">Battery Storage</a></li>
+          <li><a href="/roofing">Roofing</a></li>
+          <li><a href="/srec">SREC Aggregation</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="/about">About Us</a></li>
+          <li><a href="/portfolio">Portfolio</a></li>
+          <li><a href="/service-area">Service Area</a></li>
+          <li><a href="/faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="/contact">Contact Us</a></li>
+          
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 HelloSun Energy LLC · PA HIC# T001208. All rights reserved.</span>
+      <span>Privacy Policy · Terms of Service</span>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAQ — HelloSun Energy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; color: #222222; background: #ffffff; }
+    h1, h2, h3 { font-family: 'Playfair Display', Georgia, serif; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── NAV ── */
+    nav {
+      background: #ffffff;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px; height: 80px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      position: sticky; top: 0; z-index: 100;
+    }
+    .nav-logo img { height: 52px; width: auto; }
+    .nav-links {
+      display: flex; gap: 36px; list-style: none;
+      font-size: 0.9rem; font-weight: 500; color: #1B3A5C;
+    }
+    .nav-links li a { transition: color 0.2s; }
+    .nav-links li a:hover, .nav-links li a.active { color: #FD8B21; }
+    .nav-cta {
+      background: #FD8B21; color: #ffffff;
+      font-family: 'Inter', sans-serif; font-size: 0.88rem; font-weight: 600;
+      padding: 12px 26px; border-radius: 6px; border: none; cursor: pointer;
+      transition: background 0.2s, transform 0.1s; white-space: nowrap;
+    }
+    .nav-cta:hover { background: #e07818; transform: translateY(-1px); }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      background: #0D2B45;
+      padding: 64px 80px 56px;
+      color: #ffffff;
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 64px;
+      align-items: center;
+    }
+    .page-header .eyebrow {
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: #FD8B21; margin-bottom: 12px;
+    }
+    .page-header h1 { font-size: clamp(2rem, 4vw, 3rem); line-height: 1.15; margin-bottom: 16px; }
+    .page-header h1 span { color: #26AAE7; }
+    .page-header p {
+      font-size: 1rem; color: rgba(255,255,255,0.72); line-height: 1.7;
+    }
+    .page-header-img { border-radius: 14px; overflow: hidden; aspect-ratio: 4/3; }
+    .page-header-img img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* ── CONTENT ── */
+    .content {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 72px 48px 100px;
+    }
+
+    /* ── CATEGORY LABEL ── */
+    .faq-category {
+      font-size: 1rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: #FD8B21;
+      margin: 56px 0 20px;
+    }
+    .faq-category:first-child { margin-top: 0; }
+
+    /* ── ACCORDION ── */
+    .faq-item {
+      border-top: 1px solid #E6ECF0;
+    }
+    .faq-item:last-child { border-bottom: 1px solid #E6ECF0; }
+
+    .faq-question {
+      width: 100%; background: none; border: none; cursor: pointer;
+      display: flex; align-items: flex-start; justify-content: space-between;
+      gap: 20px; padding: 22px 0;
+      font-family: 'Inter', sans-serif; font-size: 1.0rem; font-weight: 600;
+      color: #0D2B45; text-align: left; line-height: 1.4;
+      transition: color 0.2s;
+    }
+    .faq-question:hover { color: #26AAE7; }
+    .faq-question.open { color: #26AAE7; }
+
+    .faq-icon {
+      width: 26px; height: 26px; border-radius: 50%;
+      border: 2px solid #E6ECF0; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      margin-top: 1px; transition: all 0.2s;
+    }
+    .faq-question.open .faq-icon {
+      background: #26AAE7; border-color: #26AAE7;
+    }
+    .faq-icon svg { width: 12px; height: 12px; transition: transform 0.3s; }
+    .faq-question.open .faq-icon svg { transform: rotate(45deg); }
+    .faq-icon svg path { stroke: #5A6B7A; stroke-width: 2.5; fill: none; stroke-linecap: round; }
+    .faq-question.open .faq-icon svg path { stroke: #ffffff; }
+
+    .faq-answer {
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.35s ease, padding 0.2s ease;
+    }
+    .faq-answer.open {
+      max-height: 800px;
+    }
+    .faq-answer-inner {
+      padding-bottom: 24px;
+      font-size: 0.95rem; line-height: 1.8; color: #4A5568;
+    }
+    .faq-answer-inner strong { color: #0D2B45; font-weight: 600; }
+    .faq-answer-inner em { color: #FD8B21; font-style: normal; font-weight: 600; }
+
+    /* ── CTA STRIP ── */
+    .cta-strip {
+      margin-top: 72px;
+      background: linear-gradient(135deg, #0D2B45 0%, #1B3A5C 100%);
+      border-radius: 14px;
+      padding: 48px 52px;
+      display: flex; align-items: center; justify-content: space-between; gap: 32px;
+      flex-wrap: wrap;
+    }
+    .cta-strip h2 {
+      font-size: 1.6rem; color: #ffffff; margin-bottom: 8px;
+    }
+    .cta-strip p {
+      font-size: 0.92rem; color: rgba(255,255,255,0.65); line-height: 1.6; max-width: 440px;
+    }
+    .cta-btn {
+      background: #FD8B21; color: #ffffff;
+      font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 600;
+      padding: 16px 36px; border-radius: 8px; border: none; cursor: pointer;
+      white-space: nowrap; flex-shrink: 0;
+      transition: background 0.2s, transform 0.1s;
+      box-shadow: 0 4px 20px rgba(253,139,33,0.35);
+    }
+    .cta-btn:hover { background: #e07818; transform: translateY(-2px); }
+
+    /* ── FOOTER ── */
+    footer { background: #071e30; padding: 60px 80px 32px; color: rgba(255,255,255,0.7); }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+    .footer-brand img { height: 44px; margin-bottom: 16px; }
+    .footer-brand p { font-size: 0.88rem; line-height: 1.65; max-width: 280px; color: rgba(255,255,255,0.55); }
+    .veteran-badge { display: inline-flex; align-items: center; gap: 8px; margin-top: 16px; background: rgba(253,139,33,0.15); border: 1px solid rgba(253,139,33,0.3); border-radius: 6px; padding: 8px 14px; font-size: 0.78rem; font-weight: 600; color: #FD8B21; letter-spacing: 0.04em; text-transform: uppercase; }
+    .footer-col h4 { font-family: 'Inter', sans-serif; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #26AAE7; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul li a { font-size: 0.88rem; color: rgba(255,255,255,0.6); transition: color 0.2s; }
+    .footer-col ul li a:hover { color: #FD8B21; }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: rgba(255,255,255,0.35); }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="/" class="nav-logo" style="text-decoration:none;">
+      <img src="HelloSun-Logo-transparent.png" alt="HelloSun Energy">
+      <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#FD8B21;margin-top:3px;text-align:center;">Solar. Done Right.</div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/#services">Services</a></li>
+      <li><a href="/portfolio">Portfolio</a></li>
+      <li><a href="/service-area">Service Area</a></li>
+      <li><a href="/faq" class="active">FAQ</a></li>
+      <li><a href="/about">About Us</a></li>
+      <li><a href="/contact">Contact</a></li>
+    </ul>
+    <button class="nav-cta">Get Started</button>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="page-header-text">
+      <div class="eyebrow">Frequently Asked Questions</div>
+      <h1>Honest answers to the questions<br><span>everyone actually asks.</span></h1>
+      <p>
+        No fluff, no runaround. We've answered the questions we hear most —
+        clearly, honestly, and without trying to confuse you into a decision.
+      </p>
+    </div>
+    <div class="page-header-img">
+      <img src="../Images/Edited/Commercial%20and%20Agricultural/Qcells%20Lancaster.png" alt="Solar installation in Lancaster, PA">
+    </div>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="content">
+
+    <!-- Solar PV Intro -->
+    <div style="background:#F0F7FB;border-left:4px solid #26AAE7;border-radius:8px;padding:28px 32px;margin-bottom:48px;">
+      <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#26AAE7;margin-bottom:12px;">Before We Get Into It</div>
+      <p style="font-size:1.05rem;font-weight:600;color:#0D2B45;margin:0 0 12px;line-height:1.5;">Solar panel technology is genuinely remarkable — and it works.</p>
+      <p style="font-size:0.95rem;color:#3A4F63;line-height:1.75;margin:0 0 10px;">
+        Many of the first solar panels ever manufactured — installed in the 1970s and 80s — are still producing meaningful electricity today, far surpassing expectations. Modern panels are engineered to last 30+ years with minimal degradation, no moving parts, and almost no maintenance. Solar technology is proven, durable, and is undeniably the lowest cost form of energy production that humanity has access to.
+      </p>
+      <p style="font-size:0.95rem;color:#3A4F63;line-height:1.75;margin:0;">
+        A solar energy system is a serious financial tool. Lower energy costs, protection against utility rate increases, and increased property value. Compared against the constant rise of energy prices, solar has never been this attractive.
+      </p>
+    </div>
+
+    <!-- Category: The Process -->
+    <div class="faq-category">The Process</div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggle(this)">
+        Why should I go solar?
+        <span class="faq-icon">
+          <svg viewBox="0 0 12 12"><path d="M6 2v8M2 6h8"/></svg>
+        </span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">
+          Electricity costs have risen steadily for decades, and the forces driving that trend are accelerating — EVs, AI infrastructure, data centers, and the electrification of everything are adding massive new demand to a grid that wasn't built for it. The utilities will pass those costs on. They always do.
+          <br><br>
+          Think about it the way you'd think about renting versus owning a home. A renter pays whatever the landlord charges, absorbs every increase, and walks away with nothing. A homeowner builds equity and controls their costs. <strong>Renting your energy from a utility — or from a solar leasing company — is no different.</strong> You pay every month, rates go up, and you own nothing. Solar is owning your energy. Every kilowatt-hour your system produces is one you didn't have to buy.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggle(this)">
+        How long does a typical solar installation take from start to finish?
+        <span class="faq-icon">
+          <svg viewBox="0 0 12 12"><path d="M6 2v8M2 6h8"/></svg>
+        </span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">
+          Most HelloSun projects go from signed contract to system turned on in <strong>45 to 90 days</strong>.
+          A good chunk of that window is waiting on utility companies and permit offices to do their thing —
+          and they're not exactly known for their urgency. Our team manages every step of that process,
+          so you won't be chasing anyone down or decoding utility paperwork at 11pm.
+          Once we're actually on your roof, the installation itself typically wraps up in a day or two.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggle(this)">
+        Do you handle all the permits and utility paperwork, or is that on me?
+        <span class="faq-icon">
+          <svg viewBox="0 0 12 12"><path d="M6 2v8M2 6h8"/></svg>
+        </span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">
+          <em>We handle everything.</em> Permits, utility interconnection agreements, net metering
+          applications, inspections — all of it. Your role in this process is to sign a few
+          documents, then more or less forget about it until we call you for system activation.
+          We've done this enough times that the bureaucracy doesn't slow us down.
+          You hired us to take care of it, and that's exactly what we do.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggle(this)">
+        What if my roof needs to be replaced — should I do that first?
+        <span class="faq-icon">
+          <svg viewBox="0 0 12 12"><path d="M6 2v8M2 6h8"/></svg>
+        </span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">
+          Yes — and this is important. Installing solar on a roof that has five years of life left
+          means paying to remove and reinstall your panels later. Nobody wants that bill.
+          The good news: <strong>HelloSun also provides roofing services</strong>, so we can assess
+          your roof during the same visit and handle both projects under one contract.
+          One company, one timeline, no finger-pointing if something comes up.
+          We'll let you know exactly what we see and what we'd recommend before you commit to anything.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggle(this)">
+        How much maintenance does a solar system require after installation?
+        <span class="faq-icon">
+          <svg viewBox="0 0 12 12"><path d="M6 2v8M2 6h8"/></svg>
+        </span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">
+          Genuinely very little. A professionally engineered solar system has no moving parts and
+          is built to handle Pennsylvania weather — including that one week in February when the
+          universe gets creative. A good rain usually handles any cleaning your panels need.
+          For most homeowners, the day-to-day burden is effectively <strong>zero</strong>.
+          That said, periodic system check-ins are a smart practice, which is part of why we offer
+          optional care plans. But if you're imagining weekends on a ladder — don't worry about it.
+        </div>
+      </div>
+    </div>
+
+    <!-- Category: Money & Savings -->
+    <div class="faq-category">Money &amp; Savings</div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggle(this)">
+        Is HelloSun the cheapest option? I've seen lower quotes from other companies.
+        <span class="faq-icon">
+          <svg viewBox="0 0 12 12"><path d="M6 2v8M2 6h8"/></svg>
+        </span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">
+          We deliver honest pricing with premium results.
+          <br><br>
+          A lot of low quotes in this industry are built on undersized systems, cut-rate equipment, lies,
+          and organizations competing on low monthly payments because they have nothing else to compete on.
+          The savings projections look great on paper until the system underperforms and nobody answers the phone.
+          <br><br>
+          We compete on <strong>accuracy, quality, and accountability</strong>. Our proposals are built on
+          real numbers — your actual usage data, your specific roof, your utility rates.
+          It's the difference between a system that performs and one that doesn't.
+          <br><br>
+          Solar is a 25-year investment. We'd rather you made the right decision than the cheapest one.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggle(this)">
+        How much will I actually save on my electric bill?
+        <span class="faq-icon">
+          <svg viewBox="0 0 12 12"><path d="M6 2v8M2 6h8"/></svg>
+        </span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">
+          Our goal on every design is to <strong>offset 100% or more</strong> of your annual energy use —
+          because electricity costs don't go down, and we want your system built for where your
+          bill is headed, not just where it sits today. Not every roof has the physical space for
+          a full-offset system, and that's okay. Even replacing half your usage with solar is a
+          genuinely strong financial move. <em>Fifty percent of a good thing is still a good thing.</em>
+          We'll show you the real numbers for your home before you make any decisions.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggle(this)">
+        How long until I break even on my investment?
+        <span class="faq-icon">
+          <svg viewBox="0 0 12 12"><path d="M6 2v8M2 6h8"/></svg>
+        </span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">
+          Most HelloSun customers reach break-even in <strong>under 10 years</strong> — often
+          meaningfully less, depending on your roof's solar potential and your current utility rates.
+          After that, every kilowatt-hour your system produces is essentially free electricity for
+          the life of the system. In a world where utility rates have done nothing but climb,
+          locking in your energy costs today is a position most homeowners wish they'd taken sooner.
+          The sun doesn't send anyone a bill — and waiting is always the most expensive option.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggle(this)">
+        What financing options do you offer?
+        <span class="faq-icon">
+          <svg viewBox="0 0 12 12"><path d="M6 2v8M2 6h8"/></svg>
+        </span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">
+          We work exclusively with <strong>local banks and credit unions</strong> — institutions
+          that are actually part of your community and accountable to it. We made a deliberate
+          choice not to partner with the large national solar lending companies, which are frankly
+          more interested in their own margins than your outcome. Local lenders typically offer
+          better rates, more flexible terms, and a conversation you can actually have with a human.
+          We'll walk you through what's available and what makes sense for your situation —
+          no pressure, no rush.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggle(this)">
+        Will solar panels increase my home's value?
+        <span class="faq-icon">
+          <svg viewBox="0 0 12 12"><path d="M6 2v8M2 6h8"/></svg>
+        </span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">
+          Yes, and the data is consistent on this. Homebuyers actively prefer properties with
+          lower monthly operating costs, and a properly designed solar system is a
+          <strong>tangible financial asset attached to your home</strong> — not just an appliance.
+          Studies have shown solar adds meaningful value at resale, and unlike a kitchen renovation,
+          this improvement pays for itself every month before you ever sell.
+          It's one of the few home investments that works for you the entire time you own it.
+        </div>
+      </div>
+    </div>
+
+    <!-- Category: Equipment & Warranties -->
+    <div class="faq-category">Equipment &amp; Warranties</div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggle(this)">
+        What warranties come with a HelloSun installation?
+        <span class="faq-icon">
+          <svg viewBox="0 0 12 12"><path d="M6 2v8M2 6h8"/></svg>
+        </span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">
+          Every HelloSun installation includes a <strong>10-year workmanship warranty</strong> —
+          that's our commitment to standing behind our work, not just the equipment.
+          On the equipment side, most panels carry 25-year performance warranties and inverters
+          typically run 10–12 years depending on the manufacturer. For homeowners who want
+          comprehensive, long-term peace of mind, we offer <strong>subscription-based care plans</strong>
+          that extend coverage for the life of your system. Think of it as a service relationship,
+          not a one-time transaction — we're here after the install, not just before it.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggle(this)">
+        What happens when the power goes out — will my solar keep the lights on?
+        <span class="faq-icon">
+          <svg viewBox="0 0 12 12"><path d="M6 2v8M2 6h8"/></svg>
+        </span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">
+          It depends on whether your system includes battery backup. A solar-only system is
+          required by code to shut down when the grid goes down — a safety measure to protect
+          utility workers in the field. <em>A battery-backed system is a different story entirely.</em>
+          HelloSun specializes in whole-home and partial backup battery solutions, so when the
+          grid goes down and your neighbors are eating leftovers by candlelight, wondering when
+          the grid will be restored, you're running the microwave, keeping the refrigerator and
+          lights on, and charging your phone as if nothing ever happened.
+          If energy independence matters to you — and it probably should — let's talk about batteries.
+        </div>
+      </div>
+    </div>
+
+    <!-- Category: Incentives & Net Metering -->
+    <div class="faq-category">Incentives &amp; Net Metering</div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggle(this)">
+        Are there tax credits or financial incentives for going solar in Pennsylvania?
+        <span class="faq-icon">
+          <svg viewBox="0 0 12 12"><path d="M6 2v8M2 6h8"/></svg>
+        </span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">
+          Pennsylvania participates in the <strong>SREC (Solar Renewable Energy Certificate) market</strong>.
+          It's worth understanding what this actually is — because SRECs are entirely separate from
+          the net metering banked energy credits on your utility bill. Two different programs,
+          two different benefits.
+          <br><br>
+          An SREC is a <strong>tradeable certificate</strong> you earn for every megawatt-hour
+          (1,000 kWh) of solar energy your system produces. Most homes earn 10–15 SRECs per year.
+          These aren't adjustments to your electric bill — they're certificates sold in a separate
+          market to power companies and businesses that are required by law to source a portion of
+          their power from solar. Your system produces clean energy, you earn certificates, those
+          certificates get sold. Real money, separate from anything happening on your electric bill.
+          HelloSun helps our customers navigate this process from enrollment through sale — and we
+          offer SREC aggregation services to any PA solar system owner, not just our own customers.
+          <a href="/srec" style="color:#FD8B21;font-weight:600;">Learn more about SRECs and our aggregation services →</a>
+          <br><br>
+          On the federal side: the 30% Investment Tax Credit you may have read about no longer applies
+          to residential homeowners. It was restructured and now primarily benefits financial institutions —
+          specifically the ones offering third-party lease products. And here's what they don't advertise:
+          when a leasing company owns your system, <em>they collect the SRECs, not you.</em>
+          That's real money out of your pocket every year while they take credit for your clean energy.
+          It's one of several reasons we don't offer leases.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggle(this)">
+        How does net metering work in Pennsylvania?
+        <span class="faq-icon">
+          <svg viewBox="0 0 12 12"><path d="M6 2v8M2 6h8"/></svg>
+        </span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">
+          Pennsylvania has <strong>1:1 net metering</strong>, which is one of the better policies in
+          the country. Here's how it works in plain terms:
+          <br><br>
+          During daylight hours, energy your panels produce is consumed by your home first — reducing
+          what you'd otherwise pull from the grid. Any excess beyond what you're using gets sent back
+          to the grid, and your utility credits you kilowatt-hour for kilowatt-hour. Those credits appear on
+          your bill as <strong>banked energy</strong> and roll forward month to month. Summer
+          overproduction builds the bank; winter draws it down. If the bank runs dry, you buy power
+          from the utility at normal rates.
+          <br><br>
+          If you've still got surplus banked energy come May, your utility pays you <strong>cash</strong>
+          and zeroes the balance — that's called a <strong>true-up</strong>. It's a solid system, and
+          one of the key reasons solar pencils out so well financially in PA.
+        </div>
+      </div>
+    </div>
+
+    <!-- Category: Is Solar Right for Me? -->
+    <div class="faq-category">Is Solar Right for Me?</div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggle(this)">
+        How do I know if my property is a good candidate for solar?
+        <span class="faq-icon">
+          <svg viewBox="0 0 12 12"><path d="M6 2v8M2 6h8"/></svg>
+        </span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">
+          Most properties are — but not all, and we'll tell you honestly if yours isn't.
+          The two factors that matter most are <strong>roof space</strong> and <strong>shading</strong>.
+          Significant tree coverage or obstructions can meaningfully reduce a system's output, and a
+          very small roof — or a heavily segmented one with more valleys than usable surface —
+          may simply not have enough continuous space for a system large enough to make financial sense.
+          Our design team evaluates both before you commit to anything.
+          <br><br>
+          If it's not a good fit, we'll say so — but that doesn't necessarily mean solar is off
+          the table. For properties where the roof isn't ideal, we also offer
+          <strong>ground-mounted systems, solar carports, and solar gazebos</strong> as alternatives,
+          depending on available property space, site location, and local municipality restrictions.
+          We'd rather find the right solution for your property than force the wrong one onto your roof.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggle(this)">
+        Does solar work in Pennsylvania winters — what about snow and cloudy days?
+        <span class="faq-icon">
+          <svg viewBox="0 0 12 12"><path d="M6 2v8M2 6h8"/></svg>
+        </span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">
+          It does — and probably better than you'd expect. Solar production peaks in summer when
+          days are long and the sun is high, but our systems still generate
+          <strong>meaningful energy in overcast conditions</strong>. Panels respond to light, not
+          just direct sun.
+          <br><br>
+          Snow is the more honest conversation. Panels covered in snow don't produce — there's no
+          getting around that. But those events are typically brief, and they happen during months
+          when days are already short and production is at its seasonal low anyway.
+          <strong>The bulk of a system's annual output happens outside of winter</strong>, so a few
+          snowy days have far less impact on your annual numbers than most people assume.
+          Pennsylvania is a strong solar market, and thousands of systems here prove it every year.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggle(this)">
+        Do you work with commercial or agricultural properties?
+        <span class="faq-icon">
+          <svg viewBox="0 0 12 12"><path d="M6 2v8M2 6h8"/></svg>
+        </span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">
+          Absolutely. HelloSun provides solar energy solutions for <strong>residential, commercial,
+          and agricultural</strong> properties. Whether it's a home, a business, a warehouse, or a
+          farm — the financial case for solar holds across the board, and in many commercial and
+          agricultural situations, the return is even more compelling. If you're a business owner
+          or farmer carrying a meaningful electric bill, the numbers on a commercial solar
+          installation are worth a serious look.
+        </div>
+      </div>
+    </div>
+
+    <!-- Category: Ownership & Your Home -->
+    <div class="faq-category">Ownership &amp; Your Home</div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggle(this)">
+        What happens to my solar system if I sell my home?
+        <span class="faq-icon">
+          <svg viewBox="0 0 12 12"><path d="M6 2v8M2 6h8"/></svg>
+        </span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">
+          This is where ownership structure matters enormously. HelloSun only installs systems
+          through <strong>direct purchase or conventional loans</strong> — meaning you own the
+          asset outright, the same way you own your roof. When you sell, the system transfers to
+          the buyer as part of the home and is generally viewed as a financial positive by buyers
+          looking for lower monthly costs.
+          <br><br>
+          Third-party lease arrangements — which we don't offer — are a different story entirely.
+          Leased systems attach to the property with a lien, and selling a home with a solar lien
+          can be genuinely complicated. In some cases, the lease must be purchased out to clear
+          the lien before closing — often at a price far higher than what the system is actually worth.
+          <em>It's a situation that has derailed more than a few real estate transactions.</em>
+          <br><br>
+          We always recommend direct ownership. Your solar system should be an asset that works
+          for you — not a liability that follows you to the closing table.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggle(this)">
+        Can I add battery storage later if I don't get it now?
+        <span class="faq-icon">
+          <svg viewBox="0 0 12 12"><path d="M6 2v8M2 6h8"/></svg>
+        </span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">
+          Yes — and it's a common path. Not every homeowner is ready to add batteries at the time
+          of their solar installation, whether for budget reasons or simply because they want to
+          start with the basics. There are <strong>many flexible options for adding storage
+          down the road</strong>, and we design systems with that possibility in mind.
+          When the time is right, adding batteries to an existing solar system is a much
+          simpler conversation than starting from scratch.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggle(this)">
+        How do I know my system is working properly after installation?
+        <span class="faq-icon">
+          <svg viewBox="0 0 12 12"><path d="M6 2v8M2 6h8"/></svg>
+        </span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">
+          Every HelloSun system includes <strong>remote monitoring</strong> — accessible from a
+          web browser or smartphone app — so you can see your system's real-time production,
+          review historical data, and confirm everything is performing as designed.
+          Watching your meter run backward on a sunny afternoon never really gets old.
+          <br><br>
+          For customers on a HelloSun <strong>care plan</strong>, we monitor your system on our
+          end as well. If something looks off, we're often aware of it before you are.
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA Strip -->
+    <div class="cta-strip">
+      <div>
+        <h2>Still have questions?</h2>
+        <p>
+          Every home is different. Let's talk through your specific situation —
+          roof, budget, goals — and give you a straight answer with no obligation.
+        </p>
+      </div>
+      <button class="cta-btn">Get Started</button>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="HelloSun-Logo-transparent.png" alt="HelloSun Energy" style="max-width:180px;">
+        <p>Precision-engineered solar &amp; battery systems for homeowners and businesses who demand quality, transparency, and long-term performance.</p>
+        <div class="veteran-badge">🎖️ Veteran Owned &amp; Operated</div>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="/residential">Residential Solar</a></li>
+          <li><a href="/commercial">Commercial Solar</a></li>
+          <li><a href="/battery">Battery Storage</a></li>
+          <li><a href="/roofing">Roofing</a></li>
+          <li><a href="/srec">SREC Aggregation</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="/about">About Us</a></li>
+          <li><a href="/portfolio">Portfolio</a></li>
+          <li><a href="/service-area">Service Area</a></li>
+          <li><a href="/faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="/contact">Contact Us</a></li>
+          
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 HelloSun Energy LLC. All rights reserved.</span>
+      <span>Privacy Policy · Terms of Service</span>
+    </div>
+  </footer>
+
+  <script>
+    function toggle(btn) {
+      const answer = btn.nextElementSibling;
+      const isOpen = answer.classList.contains('open');
+
+      // Close all open items
+      document.querySelectorAll('.faq-answer.open').forEach(el => el.classList.remove('open'));
+      document.querySelectorAll('.faq-question.open').forEach(el => el.classList.remove('open'));
+
+      // Open clicked item if it was closed
+      if (!isOpen) {
+        answer.classList.add('open');
+        btn.classList.add('open');
+      }
+    }
+  </script>
+
+</body>
+</html>
