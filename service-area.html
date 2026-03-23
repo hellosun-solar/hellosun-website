@@ -129,6 +129,7 @@
     .footer-col ul li a:hover { color: #FD8B21; }
     .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: rgba(255,255,255,0.35); }
   </style>
+  <link rel="stylesheet" href="/responsive.css">
 </head>
 <body>
 
@@ -144,9 +145,13 @@
       <li><a href="/service-area" class="active">Service Area</a></li>
       <li><a href="/faq">FAQ</a></li>
       <li><a href="/about">About Us</a></li>
+    
+      <li class="mobile-cta-li" style="list-style:none;display:none;"><a href="/contact" class="mobile-cta">Get Started</a></li>
     </ul>
     <button class="nav-cta">Get Started</button>
+    <button class="hamburger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </nav>
+  <div class="nav-overlay"></div>
 
   <!-- PAGE HEADER -->
   <div class="page-header">
@@ -348,5 +353,6 @@
     });
   </script>
 
+  <script src="/mobile-nav.js"></script>
 </body>
 </html>
