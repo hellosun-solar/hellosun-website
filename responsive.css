@@ -37,11 +37,15 @@
 .nav-overlay {
   display: none;
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background: rgba(13, 43, 69, 0.5);
-  z-index: 149;
+  z-index: 150;
   opacity: 0;
   transition: opacity 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
 }
 .nav-overlay.active {
   display: block;
@@ -75,6 +79,8 @@
    ============================================================ */
 @media (max-width: 1024px) {
   /* ---- Navigation → Hamburger ---- */
+  /* Raise nav above the overlay so the slide-out panel is tappable */
+  nav { z-index: 200; }
   .hamburger { display: flex; }
   .mobile-cta-li { display: list-item !important; }
 
@@ -85,6 +91,7 @@
     width: 320px;
     max-width: 85vw;
     height: 100vh;
+    height: 100dvh;
     background: #ffffff;
     flex-direction: column;
     padding: 100px 36px 40px;
@@ -93,6 +100,7 @@
     z-index: 200;
     transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
   .nav-links.open {
     right: 0;
