@@ -221,6 +221,14 @@
   h2, .section-title { font-size: 1.7rem !important; }
   h3 { font-size: 1.15rem !important; }
 
+  /* ---- Section label / eyebrow text (sky blue & orange) ---- */
+  .label, .eyebrow, .diff-label, .section-label,
+  .problem-label, .standard-label, .cards-label,
+  .combo-text .label, .feature-label {
+    font-size: 0.82rem !important;
+    letter-spacing: 0.1em !important;
+  }
+
   /* ---- Hero ---- */
   .hero {
     min-height: 480px;
@@ -312,7 +320,15 @@
   .hero-content p { font-size: 0.95rem; }
   h2, .section-title { font-size: 1.4rem !important; }
   .page-header h1 { font-size: 1.6rem !important; }
-  .page-header .eyebrow { font-size: 0.7rem !important; }
+  .page-header .eyebrow { font-size: 0.78rem !important; }
+
+  /* ---- Section label / eyebrow text (sky blue & orange) ---- */
+  .label, .eyebrow, .diff-label, .section-label,
+  .problem-label, .standard-label, .cards-label,
+  .combo-text .label, .feature-label {
+    font-size: 0.8rem !important;
+    letter-spacing: 0.1em !important;
+  }
 
   /* ---- Hero ---- */
   .hero { min-height: 400px; }
