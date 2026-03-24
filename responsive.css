@@ -382,3 +382,9 @@
     overflow: hidden;
   }
 }
+
+/* Suppress Google text-fragment highlights */
+::target-text {
+  background-color: transparent !important;
+  color: inherit !important;
+}
