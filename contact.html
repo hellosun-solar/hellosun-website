@@ -164,8 +164,7 @@
         </div>
       </div>
 
-      <!-- To connect this form: sign up at formspree.io, create a form, and replace "YOUR_FORM_ID" in the action URL below -->
-      <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <form id="contact-form" class="contact-form" novalidate>
         <div class="form-row">
           <div class="form-group">
             <label for="name">Name</label>
@@ -244,5 +243,112 @@
   </footer>
 
   <script src="/mobile-nav.js"></script>
+
+  <!-- THANK-YOU MODAL -->
+  <div id="ty-modal" role="dialog" aria-modal="true" aria-labelledby="ty-title" hidden
+       style="position:fixed;inset:0;background:rgba(13,43,69,0.55);display:flex;align-items:center;justify-content:center;z-index:1000;padding:24px;">
+    <div style="background:#ffffff;border-radius:16px;max-width:460px;width:100%;padding:40px 32px;box-shadow:0 20px 60px rgba(0,0,0,0.2);text-align:center;">
+      <div style="width:64px;height:64px;background:rgba(38,170,231,0.12);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#26AAE7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"></path></svg>
+      </div>
+      <h2 id="ty-title" style="font-family:\'Playfair Display\', Georgia, serif;font-size:1.8rem;color:#0D2B45;margin:0 0 12px;">Thanks for reaching out</h2>
+      <p style="color:#5A6B7A;font-size:0.95rem;line-height:1.6;margin:0 0 24px;">
+        We received your message and will get back to you within one business day. Check your inbox for our reply.
+      </p>
+      <button id="ty-close" type="button"
+        style="background:#FD8B21;color:#fff;border:none;border-radius:8px;padding:12px 28px;font-family:Inter,sans-serif;font-size:0.9rem;font-weight:600;cursor:pointer;transition:background 0.2s;">
+        Close
+      </button>
+    </div>
+  </div>
+
+  <!-- CONTACT FORM SUBMIT -->
+  <script>
+  (function() {
+    var form = document.getElementById('contact-form');
+    if (!form) return;
+    var submitBtn = form.querySelector('.form-submit');
+    var modal = document.getElementById('ty-modal');
+    var closeBtn = document.getElementById('ty-close');
+
+    function showModal() {
+      modal.hidden = false;
+      document.body.style.overflow = 'hidden';
+      setTimeout(function() { closeBtn.focus(); }, 0);
+    }
+    function hideModal() {
+      modal.hidden = true;
+      document.body.style.overflow = '';
+    }
+    closeBtn.addEventListener('click', hideModal);
+    modal.addEventListener('click', function(e) { if (e.target === modal) hideModal(); });
+    document.addEventListener('keydown', function(e) { if (!modal.hidden && e.key === 'Escape') hideModal(); });
+
+    // Inline error helper
+    function showError(msg) {
+      var note = form.querySelector('.form-error');
+      if (!note) {
+        note = document.createElement('p');
+        note.className = 'form-error';
+        note.style.cssText = 'color:#c0392b;font-size:0.85rem;margin-top:12px;text-align:center;';
+        form.appendChild(note);
+      }
+      note.textContent = msg;
+    }
+    function clearError() {
+      var note = form.querySelector('.form-error');
+      if (note) note.remove();
+    }
+
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      clearError();
+
+      // Basic client-side validation
+      var data = {
+        name:    form.elements['name'].value.trim(),
+        email:   form.elements['email'].value.trim(),
+        phone:   form.elements['phone'].value.trim(),
+        topic:   form.elements['topic'].value,
+        message: form.elements['message'].value.trim()
+      };
+      if (!data.name || !data.email || !data.topic || !data.message) {
+        showError('Please fill in all required fields.');
+        return;
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+        showError('Please enter a valid email address.');
+        return;
+      }
+
+      var origText = submitBtn.textContent;
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending...';
+
+      try {
+        var res = await fetch('https://my.hellosun.solar/api/contact-inquiry', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        var payload = await res.json().catch(function() { return {}; });
+        if (!res.ok) {
+          showError(payload.error || 'Something went wrong. Please try emailing info@hellosun.solar directly.');
+          submitBtn.disabled = false;
+          submitBtn.textContent = origText;
+          return;
+        }
+        form.reset();
+        submitBtn.disabled = false;
+        submitBtn.textContent = origText;
+        showModal();
+      } catch (err) {
+        showError('Network error. Please try emailing info@hellosun.solar directly.');
+        submitBtn.disabled = false;
+        submitBtn.textContent = origText;
+      }
+    });
+  })();
+  </script>
 </body>
 </html>
