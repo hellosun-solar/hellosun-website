@@ -245,8 +245,8 @@
   <script src="/mobile-nav.js"></script>
 
   <!-- THANK-YOU MODAL -->
-  <div id="ty-modal" role="dialog" aria-modal="true" aria-labelledby="ty-title" hidden
-       style="position:fixed;inset:0;background:rgba(13,43,69,0.55);display:flex;align-items:center;justify-content:center;z-index:1000;padding:24px;">
+  <div id="ty-modal" role="dialog" aria-modal="true" aria-labelledby="ty-title"
+       style="position:fixed;inset:0;background:rgba(13,43,69,0.55);display:none;align-items:center;justify-content:center;z-index:1000;padding:24px;">
     <div style="background:#ffffff;border-radius:16px;max-width:460px;width:100%;padding:40px 32px;box-shadow:0 20px 60px rgba(0,0,0,0.2);text-align:center;">
       <div style="width:64px;height:64px;background:rgba(38,170,231,0.12);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;">
         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#26AAE7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"></path></svg>
@@ -272,17 +272,17 @@
     var closeBtn = document.getElementById('ty-close');
 
     function showModal() {
-      modal.hidden = false;
+      modal.style.display = 'flex';
       document.body.style.overflow = 'hidden';
       setTimeout(function() { closeBtn.focus(); }, 0);
     }
     function hideModal() {
-      modal.hidden = true;
+      modal.style.display = 'none';
       document.body.style.overflow = '';
     }
     closeBtn.addEventListener('click', hideModal);
     modal.addEventListener('click', function(e) { if (e.target === modal) hideModal(); });
-    document.addEventListener('keydown', function(e) { if (!modal.hidden && e.key === 'Escape') hideModal(); });
+    document.addEventListener('keydown', function(e) { if (modal.style.display === 'flex' && e.key === 'Escape') hideModal(); });
 
     // Inline error helper
     function showError(msg) {
