@@ -394,9 +394,9 @@
             <div><div style="font-size:0.72rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#FD8B21; margin-bottom:4px;">Est. Production</div><div style="font-size:1.3rem; font-weight:600; color:#0D2B45;">~30,919 kWh/yr</div></div>
           </div>
           <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:12px;">
-            <img src="/Images/Projects/blue-bird-inn/bluebird-inn-1.jpg" alt="Blue Bird Inn solar installation in Lebanon, PA" loading="lazy" style="width:100%; height:200px; object-fit:cover; border-radius:10px;">
-            <img src="/Images/Projects/blue-bird-inn/bluebird-inn-2.jpg" alt="Aptos solar panels on the Blue Bird Inn, Lebanon, PA" loading="lazy" style="width:100%; height:200px; object-fit:cover; border-radius:10px;">
-            <img src="/Images/Projects/blue-bird-inn/bluebird-inn-3.jpg" alt="Commercial rooftop solar at the Blue Bird Inn, Lebanon, PA" loading="lazy" style="width:100%; height:200px; object-fit:cover; border-radius:10px;">
+            <img src="/Images/Projects/blue-bird-inn/bluebird-inn-1.jpg" alt="Blue Bird Inn solar installation in Lebanon, PA" loading="lazy" class="bbi-photo" style="width:100%; height:200px; object-fit:cover; border-radius:10px; cursor:zoom-in;">
+            <img src="/Images/Projects/blue-bird-inn/bluebird-inn-2.jpg" alt="Aptos solar panels on the Blue Bird Inn, Lebanon, PA" loading="lazy" class="bbi-photo" style="width:100%; height:200px; object-fit:cover; border-radius:10px; cursor:zoom-in;">
+            <img src="/Images/Projects/blue-bird-inn/bluebird-inn-3.jpg" alt="Commercial rooftop solar at the Blue Bird Inn, Lebanon, PA" loading="lazy" class="bbi-photo" style="width:100%; height:200px; object-fit:cover; border-radius:10px; cursor:zoom-in;">
           </div>
         </div>
       </div>
@@ -753,6 +753,23 @@
       function toggle(){ v.muted=!v.muted; if(!v.muted){ try{ v.play(); }catch(e){} lbl.textContent='Sound on'; } else { lbl.textContent='Tap for sound'; } }
       if(btn) btn.addEventListener('click', function(e){ e.stopPropagation(); toggle(); });
       v.addEventListener('click', toggle);
+    })();
+  </script>
+  <!-- Blue Bird Inn photo lightbox -->
+  <div id="bbi-lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.92); z-index:2000; align-items:center; justify-content:center; cursor:zoom-out;">
+    <img id="bbi-lightbox-img" src="" alt="" style="max-width:92vw; max-height:90vh; object-fit:contain; border-radius:8px;">
+    <button id="bbi-lightbox-close" type="button" aria-label="Close" style="position:absolute; top:18px; right:22px; width:44px; height:44px; border:none; border-radius:50%; background:rgba(255,255,255,0.16); color:#ffffff; font-size:26px; line-height:1; cursor:pointer;">&times;</button>
+  </div>
+  <script>
+    (function(){
+      var imgs=document.querySelectorAll('.bbi-photo'); if(!imgs.length) return;
+      var lb=document.getElementById('bbi-lightbox'), lbImg=document.getElementById('bbi-lightbox-img'), x=document.getElementById('bbi-lightbox-close');
+      function open(src,alt){ lbImg.src=src; lbImg.alt=alt||''; lb.style.display='flex'; document.body.style.overflow='hidden'; }
+      function close(){ lb.style.display='none'; lbImg.src=''; document.body.style.overflow=''; }
+      imgs.forEach(function(im){ im.addEventListener('click', function(){ open(im.currentSrc||im.src, im.alt); }); });
+      lb.addEventListener('click', function(e){ if(e.target!==lbImg) close(); });
+      x.addEventListener('click', function(e){ e.stopPropagation(); close(); });
+      document.addEventListener('keydown', function(e){ if(e.key==='Escape') close(); });
     })();
   </script>
 </body>
