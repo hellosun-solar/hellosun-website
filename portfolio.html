@@ -359,6 +359,53 @@
     </p>
   </div>
 
+  <!-- FEATURED PROJECT: BLUE BIRD INN -->
+  <section class="bbi-featured" style="background:#ffffff; padding:64px 80px;">
+    <div style="max-width:1100px; margin:0 auto;">
+      <div style="font-size:0.78rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:#FD8B21; margin-bottom:12px;">Featured Project</div>
+      <h2 style="font-size:clamp(1.8rem,3.2vw,2.6rem); line-height:1.15; color:#0D2B45; margin-bottom:8px;">Blue Bird Inn</h2>
+      <p style="font-size:1rem; color:#5A6B7A; margin-bottom:32px;">Lebanon, PA &middot; Commercial solar installation</p>
+
+      <div class="bbi-grid" style="display:grid; grid-template-columns:minmax(0,320px) 1fr; gap:40px; align-items:start;">
+        <div class="bbi-video-wrap" style="position:relative; border-radius:14px; overflow:hidden; background:#0D2B45; aspect-ratio:9 / 16;">
+          <video id="bbi-video" muted autoplay loop playsinline preload="metadata"
+            poster="/Images/Projects/blue-bird-inn/bluebird-inn-poster.jpg"
+            style="width:100%; height:100%; object-fit:cover; display:block; cursor:pointer;">
+            <source src="/Images/Projects/blue-bird-inn/bluebird-inn-video.mp4" type="video/mp4">
+          </video>
+          <button id="bbi-sound" type="button" aria-label="Toggle video sound"
+            style="position:absolute; bottom:12px; right:12px; display:flex; align-items:center; gap:6px; background:rgba(13,43,69,0.80); color:#ffffff; border:none; border-radius:30px; padding:8px 14px; font-family:'Inter',sans-serif; font-size:0.8rem; font-weight:600; cursor:pointer;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>
+            <span id="bbi-sound-label">Tap for sound</span>
+          </button>
+        </div>
+
+        <div>
+          <p style="font-size:1.05rem; line-height:1.7; color:#222222; margin-bottom:26px;">
+            A 27.6 kW commercial solar system for the Blue Bird Inn in Lebanon, PA &mdash; custom-engineered for the site to offset the property&rsquo;s energy use and lock in decades of predictable power costs.
+          </p>
+          <div style="display:flex; flex-wrap:wrap; gap:32px; margin-bottom:30px;">
+            <div><div style="font-size:0.72rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#FD8B21; margin-bottom:4px;">System Size</div><div style="font-size:1.3rem; font-weight:600; color:#0D2B45;">27.6 kW</div></div>
+            <div><div style="font-size:0.72rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#FD8B21; margin-bottom:4px;">Panels</div><div style="font-size:1.3rem; font-weight:600; color:#0D2B45;">Aptos 460W</div></div>
+            <div><div style="font-size:0.72rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#FD8B21; margin-bottom:4px;">Est. Production</div><div style="font-size:1.3rem; font-weight:600; color:#0D2B45;">~30,919 kWh/yr</div></div>
+          </div>
+          <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:12px;">
+            <img src="/Images/Projects/blue-bird-inn/bluebird-inn-1.jpg" alt="Blue Bird Inn solar installation in Lebanon, PA" loading="lazy" style="width:100%; height:200px; object-fit:cover; border-radius:10px;">
+            <img src="/Images/Projects/blue-bird-inn/bluebird-inn-2.jpg" alt="Aptos solar panels on the Blue Bird Inn, Lebanon, PA" loading="lazy" style="width:100%; height:200px; object-fit:cover; border-radius:10px;">
+            <img src="/Images/Projects/blue-bird-inn/bluebird-inn-3.jpg" alt="Commercial rooftop solar at the Blue Bird Inn, Lebanon, PA" loading="lazy" style="width:100%; height:200px; object-fit:cover; border-radius:10px;">
+          </div>
+        </div>
+      </div>
+    </div>
+    <style>
+      @media (max-width:780px){
+        .bbi-featured{ padding:48px 24px !important; }
+        .bbi-grid{ grid-template-columns:1fr !important; }
+        .bbi-video-wrap{ max-width:320px; margin:0 auto; }
+      }
+    </style>
+  </section>
+
   <!-- PORTFOLIO SECTION -->
   <section class="portfolio-section">
 
@@ -695,5 +742,14 @@
   </script>
 
   <script src="/mobile-nav.js"></script>
+  <script>
+    (function(){
+      var v=document.getElementById('bbi-video'); if(!v) return;
+      var lbl=document.getElementById('bbi-sound-label'), btn=document.getElementById('bbi-sound');
+      function toggle(){ v.muted=!v.muted; if(!v.muted){ try{ v.play(); }catch(e){} lbl.textContent='Sound on'; } else { lbl.textContent='Tap for sound'; } }
+      if(btn) btn.addEventListener('click', function(e){ e.stopPropagation(); toggle(); });
+      v.addEventListener('click', toggle);
+    })();
+  </script>
 </body>
 </html>
