@@ -127,6 +127,8 @@
     .county-chip.excluded {
       background: #fdeaea; border-color: #f5b3b3; color: #991111;
     }
+    .county-chip.link { background:#fff; border-color:#FD8B21; color:#0D2B45; text-decoration:none; transition:background .2s; }
+    .county-chip.link:hover { background:#FD8B21; color:#fff; }
 
     /* ── FOOTER ── */
     footer { background: #071e30; padding: 60px 80px 32px; color: rgba(255,255,255,0.7); }
@@ -211,6 +213,18 @@
       <h2>Served Counties</h2>
       <p>34 Pennsylvania counties within 100 miles of Reading, excluding Philadelphia.</p>
       <div class="county-grid" id="county-list"></div>
+    </div>
+
+    <div class="county-section">
+      <h2>Solar by County</h2>
+      <p>Explore solar in the areas we focus on most.</p>
+      <div class="county-grid">
+        <a class="county-chip link" href="/solar-reading-pa">Reading &amp; Berks County →</a>
+        <a class="county-chip link" href="/solar-lebanon-pa">Lebanon County →</a>
+        <a class="county-chip link" href="/solar-lehigh-valley-pa">Lehigh Valley / Allentown →</a>
+        <a class="county-chip link" href="/solar-chester-county-pa">Chester County →</a>
+        <a class="county-chip link" href="/solar-lancaster-county-pa">Lancaster County →</a>
+      </div>
     </div>
 
   </div>
