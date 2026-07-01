@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Get Started - HelloSun</title>
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="canonical" href="https://www.hellosun.solar/get-started">
+<meta name="robots" content="index,follow">
+<meta name="description" content="Start your HelloSun solar proposal. Share your details and opt in to text updates about your project.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Get Started - HelloSun">
+<meta property="og:description" content="Start your HelloSun solar proposal.">
+<meta property="og:url" content="https://www.hellosun.solar/get-started">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/responsive.css">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Inter', sans-serif; color: #222222; background: #ffffff; overflow-x: hidden; }
+h1, h2, h3 { font-family: 'Playfair Display', Georgia, serif; }
+a { text-decoration: none; color: inherit; }
+
+nav { background: #ffffff; display: flex; align-items: center; justify-content: space-between; padding: 0 48px; height: 80px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); position: sticky; top: 0; z-index: 100; }
+.nav-logo img { height: 52px; width: auto; }
+.nav-links { display: flex; gap: 36px; list-style: none; font-size: 0.9rem; font-weight: 500; color: #1B3A5C; }
+.nav-links li a { transition: color 0.2s; }
+.nav-links li a:hover { color: #FD8B21; }
+.nav-cta { background: #FD8B21; color: #ffffff; font-family: 'Inter', sans-serif; font-size: 0.88rem; font-weight: 600; padding: 12px 26px; border-radius: 6px; border: none; cursor: pointer; transition: background 0.2s, transform 0.1s; white-space: nowrap; }
+.nav-cta:hover { background: #e07818; transform: translateY(-1px); }
+
+.legal-hero { background: linear-gradient(135deg, #0D2B45 0%, #1B3A5C 100%); color: #ffffff; padding: 66px 48px 52px; text-align: center; }
+.legal-hero h1 { font-size: 2.6rem; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 12px; }
+.legal-hero .eyebrow { color: #FD8B21; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 16px; }
+.legal-hero p { color: rgba(255,255,255,0.7); font-size: 0.95rem; max-width: 620px; margin: 0 auto; }
+
+.form-wrap { max-width: 640px; margin: 0 auto; padding: 56px 24px 80px; }
+.form-card { background: #fff; border: 1px solid #e4eaef; border-radius: 14px; padding: 32px 30px; box-shadow: 0 6px 24px rgba(13,43,69,.06); }
+.field { margin-bottom: 18px; }
+.field label { display: block; font-size: 0.82rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: #1B3A5C; margin-bottom: 7px; }
+.field input, .field select { width: 100%; font-family: 'Inter', sans-serif; font-size: 0.98rem; color: #222; padding: 12px 14px; border: 1px solid #d5dee6; border-radius: 8px; background: #fbfdff; }
+.field input:focus, .field select:focus { outline: none; border-color: #26AAE7; background:#fff; }
+.field .opt { font-weight: 400; text-transform: none; letter-spacing: 0; color: #8a99a6; font-size: 0.78rem; }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+.consent { margin: 22px 0 8px; background: #EBF7FD; border: 1px solid #cfe8f6; border-radius: 10px; padding: 16px 18px; }
+.consent-top { display: flex; gap: 12px; align-items: flex-start; }
+.consent-top input[type=checkbox] { width: 20px; height: 20px; margin-top: 2px; flex: 0 0 auto; accent-color: #26AAE7; cursor: pointer; }
+.consent-top label { font-size: 0.94rem; line-height: 1.55; color: #0D2B45; cursor: pointer; }
+.consent-fine { font-size: 0.78rem; line-height: 1.6; color: #5a6b78; margin-top: 10px; }
+.consent-fine a { color: #26AAE7; text-decoration: underline; }
+
+.submit-btn { width: 100%; margin-top: 18px; background: #FD8B21; color: #fff; font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 600; padding: 15px; border: none; border-radius: 8px; cursor: pointer; transition: background .2s; }
+.submit-btn:hover { background: #e07818; }
+.form-note { font-size: 0.8rem; color: #8a99a6; text-align: center; margin-top: 14px; line-height: 1.6; }
+.form-note a { color: #26AAE7; text-decoration: underline; }
+
+footer { background: #071e30; padding: 60px 80px 32px; color: rgba(255,255,255,0.7); }
+.footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+.footer-brand img { height: 44px; margin-bottom: 16px; }
+.footer-brand p { font-size: 0.88rem; line-height: 1.65; max-width: 280px; color: rgba(255,255,255,0.55); }
+.footer-col h4 { font-family: 'Inter', sans-serif; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #26AAE7; margin-bottom: 16px; }
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.footer-col ul li a { font-size: 0.88rem; color: rgba(255,255,255,0.6); transition: color 0.2s; }
+.footer-col ul li a:hover { color: #FD8B21; }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 24px; display: flex; justify-content: space-between; font-size: 0.8rem; color: rgba(255,255,255,0.35); }
+.footer-bottom a { color: inherit; text-decoration: none; }
+.footer-bottom a:hover { color: #FD8B21; }
+
+@media (max-width: 720px) {
+.legal-hero { padding: 52px 24px 38px; }
+.legal-hero h1 { font-size: 1.9rem; }
+.form-wrap { padding: 40px 18px 64px; }
+.form-card { padding: 24px 20px; }
+.row2 { grid-template-columns: 1fr; gap: 0; }
+footer { padding: 48px 24px 24px; }
+.footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+.footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+<a href="/" class="nav-logo" style="text-decoration:none;">
+<img src="HelloSun-Logo-transparent.png" alt="HelloSun">
+<div style="font-size:0.72rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#FD8B21;margin-top:3px;text-align:center;">Solar. Done Right.</div>
+</a>
+<ul class="nav-links">
+<li><a href="/#services">Services</a></li>
+<li><a href="/portfolio">Portfolio</a></li>
+<li><a href="/service-area">Service Area</a></li>
+<li><a href="/faq">FAQ</a></li>
+<li><a href="/about">About Us</a></li>
+<li><a href="/contact">Contact</a></li>
+</ul>
+<a class="nav-cta" href="/get-started">Get Started</a>
+<button class="hamburger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+</nav>
+<div class="nav-overlay"></div>
+
+<!-- HERO -->
+<section class="legal-hero">
+<div class="eyebrow">Get Started</div>
+<h1>Start your solar proposal</h1>
+<p>Share a few details and we'll build a real proposal from your actual usage. No sales call, no pressure.</p>
+</section>
+
+<!-- FORM -->
+<main class="form-wrap">
+<form class="form-card" action="https://my.hellosun.solar/auth/register" method="post" id="getStartedForm">
+<div class="row2">
+<div class="field">
+<label for="first">First name</label>
+<input type="text" id="first" name="first" autocomplete="given-name" required>
+</div>
+<div class="field">
+<label for="last">Last name</label>
+<input type="text" id="last" name="last" autocomplete="family-name" required>
+</div>
+</div>
+<div class="field">
+<label for="email">Email</label>
+<input type="email" id="email" name="email" autocomplete="email" placeholder="you@example.com" required>
+</div>
+<div class="field">
+<label for="phone">Mobile phone</label>
+<input type="tel" id="phone" name="phone" autocomplete="tel" placeholder="(484) 555-0100" required>
+</div>
+<div class="field">
+<label for="address">Service address</label>
+<input type="text" id="address" name="address" autocomplete="street-address" placeholder="Street, City, State, ZIP" required>
+</div>
+<div class="row2">
+<div class="field">
+<label for="utility">Electric utility <span class="opt">(optional)</span></label>
+<input type="text" id="utility" name="utility" placeholder="e.g. Met-Ed, PECO">
+</div>
+<div class="field">
+<label for="bill">Avg. monthly bill <span class="opt">(optional)</span></label>
+<input type="text" id="bill" name="bill" placeholder="$">
+</div>
+</div>
+
+<!-- SMS CONSENT (unchecked by default; not required to submit) -->
+<div class="consent">
+<div class="consent-top">
+<input type="checkbox" id="sms_consent" name="sms_consent" value="yes">
+<label for="sms_consent">Send me text message updates about my solar project, including appointment and install reminders and status updates. Msg and data rates may apply. Reply STOP to opt out anytime.</label>
+</div>
+<div class="consent-fine">
+Optional. SMS consent is <strong>not</strong> a condition of purchase and is unchecked by default.
+Message frequency is approximately 1&ndash;4 per month. Reply HELP for help, STOP to cancel.
+See our <a href="/sms-opt-in">SMS Terms</a> and <a href="/privacy">Privacy Policy</a>. Mobile opt-in
+data is never shared with third parties or affiliates for marketing.
+</div>
+</div>
+
+<button type="submit" class="submit-btn">Get my proposal started</button>
+<p class="form-note">By continuing you agree to our <a href="/terms">Terms of Service</a> and
+<a href="/privacy">Privacy Policy</a>. We'll use your details to prepare your proposal.</p>
+</form>
+</main>
+
+<!-- FOOTER -->
+<footer>
+<div class="footer-top">
+<div class="footer-brand">
+<img src="HelloSun-Logo-transparent.png" alt="HelloSun" style="max-width:180px;">
+<p>Precision-engineered solar &amp; battery systems for homeowners and businesses who demand quality, transparency, and long-term performance.</p>
+</div>
+<div class="footer-col">
+<h4>Services</h4>
+<ul>
+<li><a href="/residential">Residential Solar</a></li>
+<li><a href="/commercial">Commercial Solar</a></li>
+<li><a href="/battery">Battery Storage</a></li>
+<li><a href="/roofing">Roofing</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<h4>Company</h4>
+<ul>
+<li><a href="/about">About Us</a></li>
+<li><a href="/portfolio">Portfolio</a></li>
+<li><a href="/service-area">Service Area</a></li>
+<li><a href="/faq">FAQ</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<h4>Contact</h4>
+<ul>
+<li><a href="/contact">Contact Us</a></li>
+</ul>
+</div>
+</div>
+<div class="footer-bottom">
+<span>&copy; 2026 HelloSun LLC. All rights reserved.</span>
+<span><a href="/privacy">Privacy Policy</a> &middot; <a href="/terms">Terms of Service</a></span>
+</div>
+</footer>
+
+<script src="/mobile-nav.js"></script>
+<script>
+// Hand off to the HelloStation sign-up to complete the account and confirm SMS consent.
+// No personal data is placed in the URL.
+document.getElementById('getStartedForm').addEventListener('submit', function (e) {
+  e.preventDefault();
+  window.location.href = 'https://my.hellosun.solar/auth/register';
+});
+</script>
+</body>
+</html>
