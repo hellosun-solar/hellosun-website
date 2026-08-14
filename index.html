@@ -211,8 +211,8 @@
     }
     .services-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 28px;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 22px;
     }
     .service-card {
       border-radius: 12px;
@@ -239,6 +239,13 @@
       transition: transform 0.35s ease;
     }
     .service-card:hover .service-card-img img { transform: scale(1.05); }
+
+    .svc-tile-graphic {
+      display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg, #0D2B45 0%, #1B3A5C 55%, #26AAE7 150%);
+    }
+    .svc-tile-graphic svg { width: 74px; height: 74px; transition: transform 0.35s ease; }
+    .service-card:hover .svc-tile-graphic svg { transform: scale(1.08); }
 
     .service-card-body { padding: 28px 28px; }
     .service-card-body h3 { font-size: 1.3rem; color: #0D2B45; margin-bottom: 10px; }
@@ -673,6 +680,21 @@
         </div>
       </a>
 
+      <a class="service-card" href="/services">
+        <div class="service-card-img svc-tile-graphic" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M14.7 6.3a4 4 0 0 0-5.2 5.2L3 18l3 3 6.5-6.5a4 4 0 0 0 5.2-5.2l-2.8 2.8-2.3-.6-.6-2.3 2.8-2.8Z" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="17.5" cy="17.5" r="3.2" stroke="#FD8B21" stroke-width="1.6"/>
+            <path d="M17.5 15.7v-1.2M17.5 20.5v-1.2M19.3 17.5h1.2M14.5 17.5h1.2" stroke="#FD8B21" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="service-card-body">
+          <h3>Services</h3>
+          <p>Diagnostics, repairs, EV charger and critter guard installation, and more, support that keeps your system running long after install.</p>
+          <span class="card-link">Learn more →</span>
+        </div>
+      </a>
+
     </div>
   </section>
 
@@ -826,6 +848,7 @@
           <li><a href="/commercial">Commercial Solar</a></li>
           <li><a href="/battery">Battery Storage</a></li>
           <li><a href="/roofing">Roofing</a></li>
+          <li><a href="/services">Additional Services</a></li>
         </ul>
       </div>
       <div class="footer-col">

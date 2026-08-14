@@ -3,17 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Battery Storage - HelloSun</title>
+  <title>Services - HelloSun</title>
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="canonical" href="https://www.hellosun.solar/battery">
+  <link rel="canonical" href="https://www.hellosun.solar/services">
   <!-- Open Graph / Link Preview -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Battery Storage - HelloSun">
-  <meta property="og:description" content="Home and commercial battery storage systems. Energy independence and backup power for Pennsylvania.">
+  <meta property="og:title" content="Services - HelloSun">
+  <meta property="og:description" content="Beyond installation: system diagnostics, troubleshooting and repair, EV charger installation, and critter guard installation for solar systems across Pennsylvania.">
   <meta property="og:image" content="https://hellosun.solar/og-image.png">
-  <meta property="og:url" content="https://www.hellosun.solar/battery">
+  <meta property="og:url" content="https://www.hellosun.solar/services">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -43,7 +43,7 @@
     .eyebrow { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #FD8B21; margin-bottom: 14px; }
     .page-header h1 { font-size: clamp(2.2rem, 4vw, 3.2rem); line-height: 1.15; margin-bottom: 20px; }
     .page-header h1 span { color: #26AAE7; }
-    .page-header p { font-size: 1.05rem; color: rgba(255,255,255,0.72); line-height: 1.75; }
+    .page-header p { font-size: 1.05rem; color: rgba(255,255,255,0.72); max-width: 600px; line-height: 1.75; }
 
     .cards-section { padding: 80px 80px; background: #F4F7FA; }
     .cards-intro { max-width: 680px; margin-bottom: 52px; }
@@ -57,6 +57,18 @@
     .card-solution { padding: 48px; border-left: 3px solid #FD8B21; }
     .card-solution .sol-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #26AAE7; margin-bottom: 14px; }
     .card-solution p { font-size: 0.95rem; color: #1B3A5C; line-height: 1.8; }
+
+    /* ── SOLAR + ROOF ── */
+    .combo-section { padding: 72px 80px; background: #F9FAFB; }
+    .combo-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    .combo-text .label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #26AAE7; margin-bottom: 12px; }
+    .combo-text h2 { font-size: clamp(1.7rem, 2.8vw, 2.3rem); color: #0D2B45; line-height: 1.2; margin-bottom: 16px; }
+    .combo-text p { font-size: 0.95rem; color: #5A6B7A; line-height: 1.8; margin-bottom: 12px; }
+    .combo-list { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-top: 8px; }
+    .combo-list li { display: flex; gap: 12px; align-items: flex-start; font-size: 0.92rem; color: #3D4F5E; line-height: 1.6; }
+    .combo-list li::before { content: '✓'; color: #FD8B21; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+    .combo-img { border-radius: 14px; overflow: hidden; aspect-ratio: 4/3; background: #E4ECF2; }
+    .combo-img img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
 
     .diff-section { padding: 72px 80px; background: #0D2B45; }
     .diff-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #FD8B21; margin-bottom: 12px; }
@@ -97,18 +109,22 @@
     .footer-col ul li a:hover { color: #FD8B21; }
     .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 24px; display: flex; justify-content: space-between; font-size: 0.8rem; color: rgba(255,255,255,0.35); }
 
-    /* ── IMAGE FEATURE ── */
-    .feature-section { padding: 72px 80px; background: #fff; }
-    .feature-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
-    .feature-text .label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #26AAE7; margin-bottom: 12px; }
-    .feature-text h2 { font-size: clamp(1.7rem, 2.8vw, 2.3rem); color: #0D2B45; line-height: 1.2; margin-bottom: 16px; }
-    .feature-text p { font-size: 0.95rem; color: #5A6B7A; line-height: 1.8; margin-bottom: 12px; }
-    .feature-img { border-radius: 14px; overflow: hidden; aspect-ratio: 4/3; background: #E4ECF2; }
-    .feature-img img { width: 100%; height: 100%; object-fit: cover; }
-
-    .page-header { display: grid; grid-template-columns: 1fr 380px; gap: 64px; align-items: center; }
-    .page-header-img { border-radius: 14px; overflow: hidden; aspect-ratio: 4/3; }
-    .page-header-img img { width: 100%; height: 100%; object-fit: cover; }
+    /* ── SERVICES LIST ── */
+    .svc-section { padding: 80px 80px; background: #F4F7FA; }
+    .svc-intro { max-width: 720px; margin-bottom: 52px; }
+    .svc-intro .label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #26AAE7; margin-bottom: 10px; }
+    .svc-intro h2 { font-size: clamp(1.7rem, 2.8vw, 2.3rem); color: #0D2B45; line-height: 1.2; margin-bottom: 16px; }
+    .svc-intro p { font-size: 1rem; color: #5A6B7A; line-height: 1.8; }
+    .svc-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .svc-item { background: #fff; border-radius: 12px; box-shadow: 0 2px 20px rgba(0,0,0,0.06); border-left: 3px solid #FD8B21; padding: 34px 36px; }
+    .svc-item h3 { font-family: 'Inter', sans-serif; font-size: 1.15rem; font-weight: 700; color: #0D2B45; margin-bottom: 12px; }
+    .svc-item p { font-size: 0.95rem; color: #5A6B7A; line-height: 1.8; }
+    .svc-note { margin-top: 40px; font-size: 0.95rem; color: #3D4F5E; line-height: 1.8; }
+    .svc-note strong { color: #0D2B45; }
+    @media (max-width: 780px) {
+      .svc-section { padding: 56px 24px; }
+      .svc-grid { grid-template-columns: 1fr; }
+    }
   </style>
   <link rel="stylesheet" href="/responsive.css">
 </head>
@@ -134,106 +150,47 @@
   </nav>
   <div class="nav-overlay"></div>
 
-  <div class="page-header">
-    <div class="page-header-text">
-    <div class="eyebrow">Battery Storage</div>
-    <h1>The grid is under stress.<br><span>It's only getting worse.</span></h1>
-    <p>EV charging, AI data centers, electrification, the grid wasn't built for this. Outages are more frequent. Peak rates are higher. Solar alone solves half the problem. Batteries solve the rest.</p>
+  <!-- HERO -->
+  <header class="page-header">
+    <div class="eyebrow">Additional Services</div>
+    <h1>Support that doesn't end<br><span>at installation.</span></h1>
+    <p>Solar is a decades-long investment, and it deserves decades of support. Beyond design and installation, we keep systems running at their best, add capability as your needs grow, and protect what you've built, whether we installed it or not.</p>
+  </header>
+
+  <!-- SERVICES LIST -->
+  <section class="svc-section">
+    <div class="svc-intro">
+      <div class="label">What We Offer</div>
+      <h2>More than panels on a roof.</h2>
+      <p>A short list of the other work we do for homeowners and businesses across our Pennsylvania service area.</p>
     </div>
-    <div class="page-header-img">
-      <img src="/Images/Edited/Batteries/Lebanon%20EG4%20Flexboss21%20%2B%206%20Outdoor%20Wallmounts%20%2B%20Gridboss.jpg" alt="HelloSun battery storage installation">
+
+    <div class="svc-grid">
+      <div class="svc-item">
+        <h3>System Diagnostics</h3>
+        <p>Underperforming array or a system that stopped reporting? We find the root cause using monitoring data, on-site testing, and a full inspection of your panels, inverter, and wiring, then tell you plainly what's going on.</p>
+      </div>
+      <div class="svc-item">
+        <h3>Troubleshooting &amp; Repair</h3>
+        <p>Failed inverters, faulty optimizers, tripped breakers, loose connections, error codes. We track down the fault and fix it, restoring your system to full production.</p>
+      </div>
+      <div class="svc-item">
+        <h3>EV Charger Installation</h3>
+        <p>Level 2 home and workplace charging installed by licensed electricians, sized to your electrical panel and wired to code, with or without solar. Charge faster and smarter at home.</p>
+      </div>
+      <div class="svc-item">
+        <h3>Critter Guard Installation</h3>
+        <p>Mesh barriers that seal the perimeter of your array to keep squirrels, birds, and other pests from nesting under the panels and chewing wiring, protecting your investment and your roof.</p>
+      </div>
     </div>
-  </div>
 
-  <section class="cards-section">
-    <div class="cards-intro">
-      <div class="label">What We Hear. What We Do.</div>
-      <h2>Real concerns. Direct answers.</h2>
-    </div>
-    <div class="cards-grid">
-
-      <div class="card">
-        <div class="card-pain">
-          <h3>Your solar shuts off when the grid goes down.</h3>
-          <p>Grid-tied solar automatically disconnects when the grid fails, for safety. So when the power goes out, your solar goes out too. You're in the dark either way.</p>
-        </div>
-        <div class="card-solution">
-          <div class="sol-label">HelloSun</div>
-          <p>Battery storage keeps your critical circuits running during an outage. We size the system for what matters to you and make sure it works when you need it.</p>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-pain">
-          <h3>Generators work, until you run out of fuel.</h3>
-          <p>In a short outage, generators are fine. In a long emergency, bad storm, grid failure, fuel can get hard to find. Plus they require fuel storage, maintenance, they produce exhaust, make noise, and often need manual attention.</p>
-        </div>
-        <div class="card-solution">
-          <div class="sol-label">HelloSun</div>
-          <p>A solar-paired battery runs silently, needs no fuel, and recharges itself every sunny day. Clouds slow it down occasionally, but the sun always comes back. In a long emergency, batteries are far more reliable.</p>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-pain">
-          <h3>Solar cuts your bill. Storage gives you control.</h3>
-          <p>A grid-tied solar system still makes you a utility customer. You still depend on their infrastructure, pricing, and rules. That's energy reduction, not independence.</p>
-        </div>
-        <div class="card-solution">
-          <div class="sol-label">HelloSun</div>
-          <p>Pair solar with storage and you produce, store, and control your own power. Your home or business runs on what you generate, not utility charges.</p>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-pain">
-          <h3>Already have solar? Adding storage later is an option.</h3>
-          <p>Many homeowners installed solar before battery costs came down enough to make sense. Now the math has changed - and adding storage to an existing system is often simpler than starting from scratch.</p>
-        </div>
-        <div class="card-solution">
-          <div class="sol-label">HelloSun</div>
-          <p>We assess your existing system and design a storage solution that integrates cleanly. Inverter compatibility, load analysis, proper permitting - handled correctly from the start.</p>
-        </div>
-      </div>
-
-    </div>
+    <p class="svc-note"><strong>We service systems we didn't install.</strong> Inherited a solar system with a house, or working with an installer who's no longer around? Reach out, we're happy to take a look.</p>
   </section>
 
-
-  <section class="diff-section">
-    <div class="diff-label">Why HelloSun</div>
-    <h2>Sized for your loads.<br><span>Integrated correctly.</span></h2>
-    <div class="diff-grid">
-      <div class="diff-item">
-        <h4>🔋 Critical Load Sizing</h4>
-        <p>We identify what you need to run during an outage and size the system to carry it - for the duration that actually matters.</p>
-      </div>
-      <div class="diff-item">
-        <h4>⚡ Inverter Compatibility</h4>
-        <p>Battery performance depends on matching chemistry and inverter correctly. We engineer the right fit, not a forced product.</p>
-      </div>
-      <div class="diff-item">
-        <h4>🏠 Whole-Home or Partial Backup</h4>
-        <p>Not every budget needs whole-home backup. We design around your actual priorities - critical circuits or full property coverage.</p>
-      </div>
-      <div class="diff-item">
-        <h4>📡 Remote Monitoring</h4>
-        <p>See your charge level, grid status, and production in real time. We flag issues before they become problems.</p>
-      </div>
-      <div class="diff-item">
-        <h4>📋 Fully Permitted</h4>
-        <p>Battery systems require permits and inspection. We handle everything - installed to code, documented, and signed off.</p>
-      </div>
-      <div class="diff-item">
-        <h4>🎖️ No Shortcuts</h4>
-        <p>Military discipline in every install. We do it right the first time, no comebacks.</p>
-      </div>
-    </div>
-  </section>
-
+  <!-- CTA -->
   <section class="cta-banner">
-    <h2 style="color:#0D2B45">Ready to control your energy<br><span>instead of just cutting costs?</span></h2>
-    <a class="btn-dark" href="https://my.hellosun.solar/auth/register">Get Started →</a>
+    <h2 style="color:#fff">Need a hand with your<br><span>solar system?</span></h2>
+    <a class="btn-dark" href="/contact">Get in touch</a>
   </section>
 
   <footer>

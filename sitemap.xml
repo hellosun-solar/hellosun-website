@@ -26,6 +26,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://www.hellosun.solar/services</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.hellosun.solar/portfolio</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
